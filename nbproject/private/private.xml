@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/order/_form.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/Pelanggan.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/Harga.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/pelanggan/_form.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/order/create.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/Item.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/User.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/views/site/index.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/views/pelanggan/_form.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/themes/metronic/views/layouts/kasir.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/pelanggan/index.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/Order.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/TipeLaundry.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/pelanggan/_search.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/themes/metronic/views/layouts/main.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/item/_form.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/controllers/OrderController.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/controllers/ItemController.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/controllers/HargaController.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/views/pelanggan/view.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/controllers/PelangganController.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/components/MyFormatter.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/item/view.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/themes/metronic/assets/admin/pages/scripts/index.js</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/pelanggan/create.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/order/_search.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/order/update.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/pelanggan/view.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/models/OrderDetail.php</file>
+            <file>file:/C:/xampp/htdocs/laundry/protected/modules/admin/views/order/view.php</file>
+        </group>
+    </open-files>
+</project-private>

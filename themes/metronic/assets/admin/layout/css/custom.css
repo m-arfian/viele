@@ -1,0 +1,79 @@
+/* here you can put your own css to customize and override the theme */
+
+/***
+Rounded Portlets
+***/
+/*
+.portlet {
+        border-radius: 4px !important;
+}
+
+.portlet .portlet-title {
+        border-radius: 4px 4px 0px 0px !important;
+}
+
+.portlet .portlet-body,
+.portlet .portlet-body .form-actions  {
+        border-radius: 0px 0px 4px 4px !important;
+}
+*/
+
+/* Portlet */
+.portlet .portlet-title .tools a {
+    color: white;
+}
+
+/* Gridview */
+.grid-view .button-column {
+    width:100px;
+}
+
+/* Form */
+div.form .compactRadioGroup.inline-mode{
+    display: inline-block;
+}
+div.form .compactRadioGroup label,
+div.form .compactRadioGroup input {
+    display:inline-block;
+    margin-left: 0px !important;
+    margin-right: 5px;
+}
+div.form .compactRadioGroup{
+    max-width: 600px;
+}
+div.checker{
+    margin-right: 0px !important;
+    margin-bottom: 2px !important;
+}
+div.form span.required{
+    color: red;
+}
+div.form .errorSummary{
+    border: 2px solid #C00;
+    padding: 7px 7px 12px 7px;
+    margin: 0 0 20px 0;
+    background: #FEE;
+    font-size: 0.9em;
+}
+
+div.form .errorMessage{
+    color: red;
+    font-size: 0.9em;
+}
+
+div.form .errorSummary p{
+    margin: 0;
+    padding: 5px;
+}
+
+div.form .errorSummary ul{
+    margin: 0;
+    padding: 0 0 0 20px;
+}
+
+/* Button */
+.btn.btn-xxs {
+    padding: 0px 5px;
+    line-height: 1.4;
+    font-size: 12px;
+}
