@@ -73,7 +73,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=laundry',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'compaq',
+            'password' => 'sepanjang',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(

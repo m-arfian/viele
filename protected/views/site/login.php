@@ -57,7 +57,7 @@
     <!-- END LOGIN -->
     <!-- BEGIN COPYRIGHT -->
     <div class="copyright">
-        2014 &copy; Metronic. Admin Dashboard Template.
+        2014 &copy; Viele Laundry
     </div>
     <!-- END COPYRIGHT -->
 </body>

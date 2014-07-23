@@ -3,11 +3,11 @@
 $this->pageTitle = 'Home';
 
 Yii::app()->clientScript->registerScript('search', "
-$('.search-form form').submit(function(){
-	$('#pelanggan-grid').yiiGridView('update', {
-		data: $(this).serialize()
-	});
-	return false;
+    $('.search-form form').submit(function(){
+       $('#pelanggan-grid').yiiGridView('update', {
+          data: $(this).serialize()
+      });
+return false;
 });
 ");
 ?>
@@ -36,50 +36,50 @@ $('.search-form form').submit(function(){
                     'clientOptions' => array(
                         'validateOnChange' => false,
                         'validateOnSubmit' => true
-                    )
-                ));
-                ?>
+                        )
+                    ));
+                    ?>
 
-                <div class="form-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <?php echo $form->labelEx($orderbaru, 'KODE_PELANGGAN', array('class' => 'control-label')); ?>
-                                <?php echo $form->textField($orderbaru, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
-                                <?php echo $form->error($orderbaru, 'KODE_PELANGGAN'); ?>
-                            </div>
-                            <div class="form-group">
-                                <?php echo $form->labelEx($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
-                                <div class="input-group input-small">
-                                    <?php echo $form->numberField($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
-                                    <span class="input-group-addon">Hari</span>
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'KODE_PELANGGAN', array('class' => 'control-label')); ?>
+                                    <?php echo $form->textField($orderbaru, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
+                                    <?php echo $form->error($orderbaru, 'KODE_PELANGGAN'); ?>
                                 </div>
-                                <?php echo $form->error($orderbaru, 'ESTIMASI_SELESAI'); ?>
-                            </div>
-                            <div class="form-group">
-                                <?php echo $form->labelEx($orderbaru, 'PENGAMBILAN', array('class' => 'control-label')); ?>
-                                <div class="compactRadioGroup">
-                                    <?php echo $form->radioButtonList($orderbaru, 'PENGAMBILAN', Order::listPengambilan(), array('class' => 'form-control col-md-2')); ?>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
+                                    <div class="input-group input-small">
+                                        <?php echo $form->numberField($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
+                                        <span class="input-group-addon">Hari</span>
+                                    </div>
+                                    <?php echo $form->error($orderbaru, 'ESTIMASI_SELESAI'); ?>
                                 </div>
-                                <?php echo $form->error($orderbaru, 'PENGAMBILAN'); ?>
-                            </div>
-                            <div class="form-group">
-                                <?php echo $form->labelEx($orderbaru, 'DISKON', array('class' => 'control-label')); ?>
-                                <div class="input-group input-small">
-                                    <?php echo $form->numberField($orderbaru, 'DISKON', array('class' => 'form-control', 'min' => 0, 'max' => 100)); ?>
-                                    <span class="input-group-addon">%</span>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'PENGAMBILAN', array('class' => 'control-label')); ?>
+                                    <div class="compactRadioGroup">
+                                        <?php echo $form->radioButtonList($orderbaru, 'PENGAMBILAN', Order::listPengambilan(), array('class' => 'form-control col-md-2')); ?>
+                                    </div>
+                                    <?php echo $form->error($orderbaru, 'PENGAMBILAN'); ?>
                                 </div>
-                                <?php echo $form->error($orderbaru, 'DISKON'); ?>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'DISKON', array('class' => 'control-label')); ?>
+                                    <div class="input-group input-small">
+                                        <?php echo $form->numberField($orderbaru, 'DISKON', array('class' => 'form-control', 'min' => 0, 'max' => 100)); ?>
+                                        <span class="input-group-addon">%</span>
+                                    </div>
+                                    <?php echo $form->error($orderbaru, 'DISKON'); ?>
+                                </div>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'KETERANGAN', array('class' => 'control-label')); ?>
+                                    <?php echo $form->textArea($orderbaru, 'KETERANGAN', array('class' => 'form-control')); ?>
+                                    <?php echo $form->error($orderbaru, 'KETERANGAN'); ?>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <?php echo $form->labelEx($orderbaru, 'KETERANGAN', array('class' => 'control-label')); ?>
-                                <?php echo $form->textArea($orderbaru, 'KETERANGAN', array('class' => 'form-control')); ?>
-                                <?php echo $form->error($orderbaru, 'KETERANGAN'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <table class="table table-condensed table-bordered table-striped">
-                                <tr><th></th><?php
+                            <div class="col-md-9">
+                                <table class="table table-condensed table-bordered table-striped">
+                                    <tr><th></th><?php
                                     foreach (TipeLaundry::listAll() as $laundry) {
                                         echo '<th>' . strtoupper($laundry) . '</th>';
                                     }
@@ -87,57 +87,57 @@ $('.search-form form').submit(function(){
                                     <?php foreach (Tipe::listAll() as $i => $tipe): ?>
                                     <tr><th colspan="<?php echo count(TipeLaundry::listAll()) + 1 ?>"><div class="text-center"><?php echo strtoupper($tipe) ?></div></th></tr>
                                     <?php foreach (Item::ListGrupOrder($i) as $dex => $item): ?>
-                                        <tr>
-                                            <td><?php echo $item ?></td>
-                                            <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
-                                                <td> <?php
-                                                    if (TipeLaundry::cekByItem($id, $dex)) {
-                                                        $harga = Harga::findAktif($dex, $id);
-                                                        echo $form->numberField($orderbaru->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
-                                                            'class' => 'form-control input-small',
-                                                            'min' => 0,
-                                                            'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
-                                                        ));
-                                                    }
-                                                    ?> </td>
-                                            <?php endforeach ?>
-                                        </tr>
+                                    <tr>
+                                        <td><?php echo $item ?></td>
+                                        <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
+                                        <td> <?php
+                                        if (TipeLaundry::cekByItem($id, $dex)) {
+                                            $harga = Harga::findAktif($dex, $id);
+                                            echo $form->numberField($orderbaru->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
+                                                'class' => 'form-control input-small',
+                                                'min' => 0,
+                                                'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
+                                                ));
+                                        }
+                                        ?> </td>
                                     <?php endforeach ?>
-                                <?php endforeach ?>
-                            </table>
-                        </div>
-                    </div>
-                    <!--/row-->
-                    <small><span class="required">*</span>) wajib diisi</small>
-
+                                </tr>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
+                    </table>
                 </div>
-                <div class="form-actions center">
-                    <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>
-                </div>
+            </div>
+            <!--/row-->
+            <small><span class="required">*</span>) wajib diisi</small>
 
-                <?php $this->endWidget(); ?>
+        </div>
+        <div class="form-actions center">
+            <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>
+        </div>
 
-                <!-- END FORM-->
+        <?php $this->endWidget(); ?>
+
+        <!-- END FORM-->
+    </div>
+</div>
+</div>
+<div class="col-md-12">
+    <!-- BEGIN SAMPLE TABLE PORTLET-->
+    <div class="portlet box red search-form">
+        <div class="portlet-title">
+            <div class="caption">
+                <i class="fa fa-user"></i>Daftar Pelanggan
+            </div>
+            <div class="tools">
+                <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('/pelanggan')) ?>
             </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <!-- BEGIN SAMPLE TABLE PORTLET-->
-        <div class="portlet box red search-form">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-user"></i>Daftar Pelanggan
-                </div>
-                <div class="tools">
-                    <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('/pelanggan')) ?>
-                </div>
-            </div>
-            <div class="portlet-body">
-                <div class="form-actions ">
-                    <?php
-                    $search = $this->beginWidget('CActiveForm', array(
-                        'action' => Yii::app()->createUrl($this->route),
-                        'method' => 'get',
+        <div class="portlet-body">
+            <div class="form-actions ">
+                <?php
+                $search = $this->beginWidget('CActiveForm', array(
+                    'action' => Yii::app()->createUrl($this->route),
+                    'method' => 'get',
                     ));
                     ?>
 
@@ -200,7 +200,7 @@ $('.search-form form').submit(function(){
                         'selectedPageCssClass' => 'active',
                         'hiddenPageCssClass' => 'disabled',
                         'htmlOptions' => array('class' => ''),
-                    ),
+                        ),
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
                     //end styling pagination
@@ -216,7 +216,7 @@ $('.search-form form').submit(function(){
                             'name' => 'KELAMIN',
                             'type' => 'kelamin',
                             'value' => '$data->KELAMIN'
-                        ),
+                            ),
                         'KONTAK',
                         'EMAIL',
                     /* array(
@@ -224,23 +224,23 @@ $('.search-form form').submit(function(){
                       'type' => 'statusaktif',
                       'value' => '$data->STATUS_PELANGGAN'
                       ), */
-                        array(
-                            'class' => 'MyCButtonColumn',
-                            'template' => '{view} {update}',
-                            'buttons' => array(
-                                'view' => array(
-                                    'url' => 'array("/pelanggan/view", "id" => $data->KODE_PELANGGAN)'
+                    array(
+                        'class' => 'MyCButtonColumn',
+                        'template' => '{view} {update}',
+                        'buttons' => array(
+                            'view' => array(
+                                'url' => 'array("/pelanggan/view", "id" => $data->KODE_PELANGGAN)'
                                 ),
-                                'update' => array(
-                                    'url' => 'array("/pelanggan/update", "id" => $data->KODE_PELANGGAN)'
+                            'update' => array(
+                                'url' => 'array("/pelanggan/update", "id" => $data->KODE_PELANGGAN)'
                                 )
                             )
                         )
                     ),
-                ));
-                ?>
-            </div>
-        </div>
-        <!-- END SAMPLE TABLE PORTLET-->
-    </div>
+));
+?>
+</div>
+</div>
+<!-- END SAMPLE TABLE PORTLET-->
+</div>
 </div>
