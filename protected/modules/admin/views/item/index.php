@@ -55,9 +55,9 @@ $('.search-form form').submit(function(){
                     //styling pagination
                     'pager' => array(
                         'header' => '',
-                        'selectedPageCssClass' => 'active',
-                        'hiddenPageCssClass' => 'disabled',
-                        'htmlOptions' => array('class' => ''),
+                        'selectedPageCssClass' => 'paginate_button active',
+                        'hiddenPageCssClass' => 'paginate_button disabled',
+                        'htmlOptions' => array('class' => 'pagination'),
                     ),
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
@@ -70,11 +70,6 @@ $('.search-form form').submit(function(){
                         'KODE_ITEM',
                         'NAMA_ITEM',
                         'tipe.NAMA_TIPE',
-                        array(
-                            'name' => 'STATUS_ITEM',
-                            'type' => 'statusaktif',
-                            'value' => '$data->STATUS_ITEM'
-                        ),
                         array(
                             'class' => 'MyCButtonColumn',
                             'buttons' => array(

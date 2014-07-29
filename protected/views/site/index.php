@@ -14,114 +14,6 @@ return false;
 
 <div class="row">
     <div class="col-md-12">
-        <?php echo Yii::app()->user->getFlash('info') ?>
-        <div class="portlet box yellow">
-            <div class="portlet-title">
-                <div class="caption">
-                    <i class="fa fa-language"></i>Form Order
-                </div>
-                <div class="tools"></div>
-            </div>
-            <div class="portlet-body form">
-                <!-- BEGIN FORM-->
-                <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'order-form',
-                    // Please note: When you enable ajax validation, make sure the corresponding
-                    // controller action is handling ajax validation correctly.
-                    // There is a call to performAjaxValidation() commented in generated controller code.
-                    // See class documentation of CActiveForm for details on this.
-                    'enableAjaxValidation' => false,
-                    'enableClientValidation' => true,
-                    'clientOptions' => array(
-                        'validateOnChange' => false,
-                        'validateOnSubmit' => true
-                        )
-                    ));
-                    ?>
-
-                    <div class="form-body">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <?php echo $form->labelEx($orderbaru, 'KODE_PELANGGAN', array('class' => 'control-label')); ?>
-                                    <?php echo $form->textField($orderbaru, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
-                                    <?php echo $form->error($orderbaru, 'KODE_PELANGGAN'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <?php echo $form->labelEx($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
-                                    <div class="input-group input-small">
-                                        <?php echo $form->numberField($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
-                                        <span class="input-group-addon">Hari</span>
-                                    </div>
-                                    <?php echo $form->error($orderbaru, 'ESTIMASI_SELESAI'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <?php echo $form->labelEx($orderbaru, 'PENGAMBILAN', array('class' => 'control-label')); ?>
-                                    <div class="compactRadioGroup">
-                                        <?php echo $form->radioButtonList($orderbaru, 'PENGAMBILAN', Order::listPengambilan(), array('class' => 'form-control col-md-2')); ?>
-                                    </div>
-                                    <?php echo $form->error($orderbaru, 'PENGAMBILAN'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <?php echo $form->labelEx($orderbaru, 'DISKON', array('class' => 'control-label')); ?>
-                                    <div class="input-group input-small">
-                                        <?php echo $form->numberField($orderbaru, 'DISKON', array('class' => 'form-control', 'min' => 0, 'max' => 100)); ?>
-                                        <span class="input-group-addon">%</span>
-                                    </div>
-                                    <?php echo $form->error($orderbaru, 'DISKON'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <?php echo $form->labelEx($orderbaru, 'KETERANGAN', array('class' => 'control-label')); ?>
-                                    <?php echo $form->textArea($orderbaru, 'KETERANGAN', array('class' => 'form-control')); ?>
-                                    <?php echo $form->error($orderbaru, 'KETERANGAN'); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-9">
-                                <table class="table table-condensed table-bordered table-striped">
-                                    <tr><th></th><?php
-                                    foreach (TipeLaundry::listAll() as $laundry) {
-                                        echo '<th>' . strtoupper($laundry) . '</th>';
-                                    }
-                                    ?></tr>
-                                    <?php foreach (Tipe::listAll() as $i => $tipe): ?>
-                                    <tr><th colspan="<?php echo count(TipeLaundry::listAll()) + 1 ?>"><div class="text-center"><?php echo strtoupper($tipe) ?></div></th></tr>
-                                    <?php foreach (Item::ListGrupOrder($i) as $dex => $item): ?>
-                                    <tr>
-                                        <td><?php echo $item ?></td>
-                                        <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
-                                        <td> <?php
-                                        if (TipeLaundry::cekByItem($id, $dex)) {
-                                            $harga = Harga::findAktif($dex, $id);
-                                            echo $form->numberField($orderbaru->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
-                                                'class' => 'form-control input-small',
-                                                'min' => 0,
-                                                'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
-                                                ));
-                                        }
-                                        ?> </td>
-                                    <?php endforeach ?>
-                                </tr>
-                            <?php endforeach ?>
-                        <?php endforeach ?>
-                    </table>
-                </div>
-            </div>
-            <!--/row-->
-            <small><span class="required">*</span>) wajib diisi</small>
-
-        </div>
-        <div class="form-actions center">
-            <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>
-        </div>
-
-        <?php $this->endWidget(); ?>
-
-        <!-- END FORM-->
-    </div>
-</div>
-</div>
-<div class="col-md-12">
     <!-- BEGIN SAMPLE TABLE PORTLET-->
     <div class="portlet box red search-form">
         <div class="portlet-title">
@@ -197,10 +89,10 @@ return false;
                     //styling pagination
                     'pager' => array(
                         'header' => '',
-                        'selectedPageCssClass' => 'active',
-                        'hiddenPageCssClass' => 'disabled',
-                        'htmlOptions' => array('class' => ''),
-                        ),
+                        'selectedPageCssClass' => 'paginate_button active',
+                        'hiddenPageCssClass' => 'paginate_button disabled',
+                        'htmlOptions' => array('class' => 'pagination'),
+                    ),
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
                     //end styling pagination
@@ -237,10 +129,141 @@ return false;
                             )
                         )
                     ),
-));
-?>
-</div>
+                ));
+                ?>
+        </div>
 </div>
 <!-- END SAMPLE TABLE PORTLET-->
 </div>
+    <div class="col-md-12">
+        <?php echo Yii::app()->user->getFlash('info') ?>
+        <div class="portlet box yellow">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-language"></i>Form Order
+                </div>
+                <div class="tools"></div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <?php
+                $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'order-form',
+                    // Please note: When you enable ajax validation, make sure the corresponding
+                    // controller action is handling ajax validation correctly.
+                    // There is a call to performAjaxValidation() commented in generated controller code.
+                    // See class documentation of CActiveForm for details on this.
+                    'enableAjaxValidation' => false,
+                    'enableClientValidation' => true,
+                    'clientOptions' => array(
+                        'validateOnChange' => false,
+                        'validateOnSubmit' => true
+                        )
+                    ));
+                    ?>
+
+                    <div class="form-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'KODE_PELANGGAN', array('class' => 'control-label')); ?>
+                                    <?php echo $form->textField($orderbaru, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
+                                    <?php echo $form->error($orderbaru, 'KODE_PELANGGAN'); ?>
+                                </div>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
+                                    <div class="input-group input-small">
+                                        <?php echo $form->numberField($orderbaru, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
+                                        <span class="input-group-addon">Hari</span>
+                                    </div>
+                                    <?php echo $form->error($orderbaru, 'ESTIMASI_SELESAI'); ?>
+                                </div>
+                                <div class="form-group">
+                                <?php echo $form->labelEx($orderbaru, 'PENGAMBILAN', array('class' => 'control-label')); ?>
+                                <div class="compactRadioGroup">
+                                    <?php echo $form->radioButtonList($orderbaru, 'PENGAMBILAN', Order::listPengambilan(), array(
+                                        'class' => 'form-control col-md-2',
+                                        'onchange' => '
+                                            if(this.value == 2)
+                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
+                                            else {
+                                                $("#Order_BIAYA_ANTAR").attr("value", "0");
+                                                $("#Order_BIAYA_ANTAR").attr("disabled", "dsiabled");
+                                            }
+                                        '
+                                    )); ?>
+                                </div>
+                                <?php echo $form->error($orderbaru, 'PENGAMBILAN'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->labelEx($orderbaru, 'BIAYA_ANTAR', array('class' => 'control-label')); ?>
+                                <div class="input-group input-small">
+                                    <span class="input-group-addon">Rp</span>
+                                    <?php echo $form->textField($orderbaru, 'BIAYA_ANTAR', array('class' => 'form-control', 'disabled' => $orderbaru->PENGAMBILAN == Order::AMBIL)); ?>
+                                </div>
+                                <?php echo $form->error($orderbaru, 'BIAYA_ANTAR'); ?>
+                            </div>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'DISKON', array('class' => 'control-label')); ?>
+                                    <div class="input-group input-small">
+                                        <?php echo $form->numberField($orderbaru, 'DISKON', array('class' => 'form-control', 'min' => 0, 'max' => 100)); ?>
+                                        <span class="input-group-addon">%</span>
+                                    </div>
+                                    <?php echo $form->error($orderbaru, 'DISKON'); ?>
+                                </div>
+                                <div class="form-group">
+                                    <?php echo $form->labelEx($orderbaru, 'KETERANGAN', array('class' => 'control-label')); ?>
+                                    <?php echo $form->textArea($orderbaru, 'KETERANGAN', array('class' => 'form-control')); ?>
+                                    <?php echo $form->error($orderbaru, 'KETERANGAN'); ?>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <table class="table table-condensed table-bordered table-striped">
+                                    <tr><th></th><?php
+                                    foreach (TipeLaundry::listAll() as $laundry) {
+                                        echo '<th>' . strtoupper($laundry) . '</th>';
+                                    }
+                                    ?></tr>
+                                    <?php foreach (Tipe::listAll() as $i => $tipe): ?>
+                                    <tr><th colspan="<?php echo count(TipeLaundry::listAll()) + 1 ?>"><div class="text-center"><?php echo strtoupper($tipe) ?></div></th></tr>
+                                    <?php foreach (Item::ListGrupOrder($i) as $dex => $item): ?>
+                                    <tr>
+                                        <td><?php echo $item ?></td>
+                                        <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
+                                        <td> <?php
+                                        if (TipeLaundry::cekByItem($id, $dex)) {
+                                            $harga = Harga::findAktif($dex, $id);
+                                            echo $form->numberField($orderbaru->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
+                                                'class' => 'form-control input-small',
+                                                'min' => 0,
+                                                'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
+                                                ));
+                                        }
+                                        ?> </td>
+                                    <?php endforeach ?>
+                                </tr>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
+                    </table>
+                </div>
+            </div>
+            <!--/row-->
+            <small><span class="required">*</span>) wajib diisi</small>
+
+        </div>
+        <div class="form-actions center">
+            <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>
+        </div>
+
+        <?php $this->endWidget(); ?>
+
+        <!-- END FORM-->
+    </div>
 </div>
+</div>
+
+</div>
+
+<script>
+    $('#pelanggan-grid').hide();
+</script>

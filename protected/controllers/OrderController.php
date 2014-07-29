@@ -29,6 +29,11 @@ class OrderController extends Controller {
                 'users' => array('@'),
                 'roles' => array(WebUser::ROLE_KASIR)
             ),
+            array('allow',
+                'actions' => array('cetak'),
+                'users' => array('@'),
+                'roles' => array(WebUser::ROLE_ADMIN, WebUser::ROLE_KASIR)
+            ),
             array('deny', // deny all users
                 'users' => array('*'),
             ),
@@ -131,6 +136,17 @@ class OrderController extends Controller {
         $model = $this->loadModel($id);
         $model->STATUS_ORDER = $_POST['val'];
         $model->update();
+    }
+    
+    public function actionCetak($id) {
+        $this->layout = '//layouts/nolayout';
+        $model = $this->loadModel($id);
+        $laundry = TipeLaundry::listAll();
+        
+        $this->render('cetak', array(
+            'model' => $model,
+            'laundry' => $laundry
+        ));
     }
 
     /**

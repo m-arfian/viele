@@ -9,7 +9,7 @@
         <div class="portlet box yellow">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-search"></i>Form Item
+                    <i class="fa fa-inbox"></i>Form Item
                 </div>
                 <div class="tools"></div>
             </div>

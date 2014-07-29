@@ -109,6 +109,7 @@ $this->breadcrumbs = array(
                     <table class="table table-condensed table-bordered">
                         <tr><th>Subtotal</th><td><?php echo MyFormatter::formatUang($model->getSubtotal()) ?></td></tr>
                         <tr><th>Diskon</th><td><?php echo $model->DISKON.'%' ?></td></tr>
+                        <tr><th>Biaya Antar</th><td><?php echo MyFormatter::formatUang($model->BIAYA_ANTAR) ?></td></tr>
                         <tr><th>Total</th><td><?php echo MyFormatter::formatUang($model->getTotal()) ?></td></tr>
                     </table>
                 </div>

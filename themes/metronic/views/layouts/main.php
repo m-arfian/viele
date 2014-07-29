@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
-Version: 3.1.1
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -68,9 +57,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="page-header-inner">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <a href="index.php">
-                        <img src="<?php echo Yii::app()->theme->baseUrl ?>/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
-                    </a>
+                    <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/assets/admin/layout/img/logo.png', 'logo', array('class' => 'logo-default'), array('/admin'))) ?>
                     <div class="menu-toggler sidebar-toggler hide">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
@@ -84,110 +71,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="top-menu">
                     <ul class="nav navbar-nav pull-right">
                         <!-- BEGIN NOTIFICATION DROPDOWN -->
-                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                                <i class="icon-bell"></i>
-                                <span class="badge badge-default">
-                                    7 </span>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <p>
-                                        You have 14 new notifications
-                                    </p>
-                                </li>
-                                <li>
-                                    <ul class="dropdown-menu-list scroller" style="height: 250px;">
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-success">
-                                                    <i class="fa fa-plus"></i>
-                                                </span>
-                                                New user registered. <span class="time">
-                                                    Just now </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-danger">
-                                                    <i class="fa fa-bolt"></i>
-                                                </span>
-                                                Server #12 overloaded. <span class="time">
-                                                    15 mins </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-warning">
-                                                    <i class="fa fa-bell-o"></i>
-                                                </span>
-                                                Server #2 not responding. <span class="time">
-                                                    22 mins </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-info">
-                                                    <i class="fa fa-bullhorn"></i>
-                                                </span>
-                                                Application error. <span class="time">
-                                                    40 mins </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-danger">
-                                                    <i class="fa fa-bolt"></i>
-                                                </span>
-                                                Database overloaded 68%. <span class="time">
-                                                    2 hrs </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-danger">
-                                                    <i class="fa fa-bolt"></i>
-                                                </span>
-                                                2 user IP blocked. <span class="time">
-                                                    5 hrs </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-warning">
-                                                    <i class="fa fa-bell-o"></i>
-                                                </span>
-                                                Storage Server #4 not responding. <span class="time">
-                                                    45 mins </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-info">
-                                                    <i class="fa fa-bullhorn"></i>
-                                                </span>
-                                                System Error. <span class="time">
-                                                    55 mins </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#">
-                                                <span class="label label-sm label-icon label-danger">
-                                                    <i class="fa fa-bolt"></i>
-                                                </span>
-                                                Database overloaded 68%. <span class="time">
-                                                    2 hrs </span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="external">
-                                    <a href="#">
-                                        See all notifications <i class="m-icon-swapright"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        <?php $this->renderPartial('//layouts/part/_notif_admin') ?>
                         <!-- END NOTIFICATION DROPDOWN -->
                         <!-- BEGIN INBOX DROPDOWN -->
                         
@@ -981,6 +865,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 Index.initMiniCharts();
                 Index.initIntro();
                 Tasks.initDashboardWidget();
+
+                $('.dp').datepicker();
             });
         </script>
         <!-- END JAVASCRIPTS -->

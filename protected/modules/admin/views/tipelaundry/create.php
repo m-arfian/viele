@@ -1,18 +1,12 @@
 <?php
+
 /* @var $this TipelaundryController */
 /* @var $model TipeLaundry */
-
-$this->breadcrumbs=array(
-	'Tipe Laundries'=>array('index'),
-	'Create',
-);
-
-$this->menu=array(
-	array('label'=>'List TipeLaundry', 'url'=>array('index')),
-	array('label'=>'Manage TipeLaundry', 'url'=>array('admin')),
+$this->pageTitle = 'Tambah Tipe Laundry';
+$this->breadcrumbs = array(
+    'Tipe Laundry' => array('index'),
+    'Tambah Tipe Laundry',
 );
 ?>
 
-<h1>Create TipeLaundry</h1>
-
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model' => $model)); ?>

@@ -76,15 +76,16 @@ $this->breadcrumbs = array(
                             ),
                             array(
                                 'class' => 'MyCButtonColumn',
-                                'template' => '{nonaktif}',
+                                'template' => '{update} {nonaktif}',
                                 'buttons' => array(
                                     'nonaktif' => array(
                                         'url' => 'array("harga/nonaktif", "id" => $data->KODE_HARGA, "ajax" => "false")',
-                                        'icon' => '<i class="fa fa-times"></i>',
+                                        'icon' => '<i class="fa fa-trash-o"></i>',
                                         'click' => 'function(e){
                                             var jawab = confirm("Apa Anda yakin untuk menghapus data ini?");
                                             return jawab;
-		                        }',
+		                                  }',
+                                        'options' => array('class' => 'btn btn-danger btn-xs'),
                                     )
                                 )
                             ),

@@ -9,8 +9,16 @@ $this->breadcrumbs = array(
 ?>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
         <?php echo Yii::app()->user->getFlash('info') ?>
+    </div>
+    <div class="col-md-2">
+        <?php echo CHtml::link('Cetak Nota', array('/order/cetak', 'id' => $model->KODE_ORDER), array('class' => 'btn btn-success pull-right print')) ?>
+    </div>
+</div><br/>
+
+<div class="row">
+    <div class="col-md-6">
         <!-- BEGIN SAMPLE TABLE PORTLET-->
         <div class="portlet box red">
             <div class="portlet-title">
@@ -108,9 +116,10 @@ $this->breadcrumbs = array(
                 </div><br/>
                 <div class="table-scrollable">
                     <table class="table table-condensed table-bordered">
-                        <tr><th>Subtotal</th><td><?php echo MyFormatter::formatUang($model->getSubtotal()) ?></td></tr>
+                        <tr><th>Subtotal</th><td><?php echo MyFormatter::formatUang($model->SUBTOTAL) ?></td></tr>
                         <tr><th>Diskon</th><td><?php echo $model->DISKON.'%' ?></td></tr>
-                        <tr><th>Total</th><td><?php echo MyFormatter::formatUang($model->getTotal()) ?></td></tr>
+                        <tr><th>Biaya Antar</th><td><?php echo MyFormatter::formatUang($model->BIAYA_ANTAR) ?></td></tr>
+                        <tr><th>Total</th><td><?php echo MyFormatter::formatUang($model->TOTAL) ?></td></tr>
                     </table>
                 </div>
             </div>
@@ -118,3 +127,8 @@ $this->breadcrumbs = array(
         <!-- END SAMPLE TABLE PORTLET-->
     </div>
 </div>
+
+<script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/custom/jquery.printPage.js" type="text/javascript"></script>
+<script>
+    $(".print").printPage();
+</script>

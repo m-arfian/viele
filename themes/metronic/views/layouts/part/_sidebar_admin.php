@@ -18,20 +18,12 @@
                 <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
                 <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
                 <form class="sidebar-search" action="extra_search.html" method="POST">
-                    <a href="javascript:;" class="remove">
-                        <i class="icon-close"></i>
-                    </a>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Cari Pelanggan">
-                        <span class="input-group-btn">
-                            <a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
-                        </span>
-                    </div>
+
                 </form>
                 <!-- END RESPONSIVE QUICK SEARCH FORM -->
             </li>
             <li class="start active">
-                <?php echo CHtml::link('<i class="icon-home"></i><span class="title">Home</span><span class="selected"></span>', array('/')) ?>
+                <?php echo CHtml::link('<i class="icon-home"></i><span class="title">Home Admin</span><span class="selected"></span>', array('/admin')) ?>
             </li>
             <li>
                 <?php echo CHtml::link('<i class="icon-user-following"></i><span class="title">Manajemen Pelanggan</span>', array('/admin/pelanggan')) ?>
@@ -60,6 +52,9 @@
 <!--            <li>
                 <?php echo CHtml::link('<i class="icon-users"></i><span class="title">Manajemen User</span>', array('/admin/user')) ?>
             </li>-->
+            <li>
+                <?php echo CHtml::link('<i class="icon-docs"></i><span class="title">Rekap Transaksi</span>', array('/admin/rekap')) ?>
+            </li>
         </ul>
         <!-- END SIDEBAR MENU -->
     </div>

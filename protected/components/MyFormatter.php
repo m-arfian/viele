@@ -9,6 +9,10 @@ class MyFormatter extends CFormatter {
     public static function formatUang($value) {
         return "Rp. " . number_format($value, 0, ',', '.');
     }
+    
+    public static function formatUang2($value) {
+        return number_format($value, 0, ',', '.');
+    }
 
     public static function formatKelamin($value) {
         if ($value == 'L')

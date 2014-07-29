@@ -25,11 +25,11 @@ class TipeController extends Controller {
      */
     public function accessRules() {
         return array(
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+            /* array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update', 'index', 'view'),
                 'users' => array('@'),
                 'roles' => array(WebUser::ROLE_ADMIN)
-            ),
+            ), */
             array('deny', // deny all users
                 'users' => array('*'),
             ),

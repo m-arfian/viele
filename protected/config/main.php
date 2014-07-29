@@ -1,7 +1,7 @@
 <?php
 
 // uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
+Yii::setPathOfAlias('chartjs', dirname(__FILE__).'/../extensions/yii-chartjs');
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
@@ -10,7 +10,7 @@ return array(
     'theme' => 'metronic',
     'timeZone' => 'Asia/Jakarta',
     // preloading 'log' component
-    'preload' => array('log'),
+    'preload' => array('log', 'chartjs'),
     // autoloading model and component classes
     'import' => array(
         'application.models.*',
@@ -73,7 +73,7 @@ return array(
             'connectionString' => 'mysql:host=localhost;dbname=laundry',
             'emulatePrepare' => true,
             'username' => 'root',
-            'password' => 'sepanjang',
+            'password' => 'compaq',
             'charset' => 'utf8',
         ),
         'errorHandler' => array(
@@ -95,11 +95,13 @@ return array(
              */
             ),
         ),
+        'chartjs' => array('class' => 'chartjs.components.ChartJs'),
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
     'params' => array(
         // this is used in contact page
-        'adminEmail' => 'webmaster@example.com',
+        'tahun' => 2014,
+        'bulan' => 8
     ),
 );

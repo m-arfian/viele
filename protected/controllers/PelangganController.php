@@ -45,11 +45,22 @@ class PelangganController extends Controller {
         ));
     }
 
+    public function actionIndex() {
+        $model = new Pelanggan('search');
+        $model->unsetAttributes();  // clear any default values
+        if (isset($_GET['Pelanggan']))
+            $model->attributes = $_GET['Pelanggan'];
+
+        $this->render('index', array(
+            'model' => $model,
+        ));
+    }
+
     /**
      * Creates a new model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
-    public function actionIndex() {
+    public function actionCreate() {
         $model = new Pelanggan('baru');
 
         // Uncomment the following line if AJAX validation is needed

@@ -51,9 +51,27 @@
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'PENGAMBILAN', array('class' => 'control-label')); ?>
                                 <div class="compactRadioGroup">
-                                    <?php echo $form->radioButtonList($model, 'PENGAMBILAN', Order::listPengambilan(), array('class' => 'form-control col-md-2')); ?>
+                                    <?php echo $form->radioButtonList($model, 'PENGAMBILAN', Order::listPengambilan(), array(
+                                        'class' => 'form-control col-md-2',
+                                        'onchange' => '
+                                            if(this.value == 2)
+                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
+                                            else {
+                                                $("#Order_BIAYA_ANTAR").attr("value", "0");
+                                                $("#Order_BIAYA_ANTAR").attr("disabled", "dsiabled");
+                                            }
+                                        '
+                                    )); ?>
                                 </div>
                                 <?php echo $form->error($model, 'PENGAMBILAN'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->labelEx($model, 'BIAYA_ANTAR', array('class' => 'control-label')); ?>
+                                <div class="input-group input-small">
+                                    <span class="input-group-addon">Rp</span>
+                                    <?php echo $form->textField($model, 'BIAYA_ANTAR', array('class' => 'form-control', 'disabled' => $model->PENGAMBILAN == Order::AMBIL)); ?>
+                                </div>
+                                <?php echo $form->error($model, 'BIAYA_ANTAR'); ?>
                             </div>
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'DISKON', array('class' => 'control-label')); ?>

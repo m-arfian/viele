@@ -1,15 +1,17 @@
 <?php
-/* @var $this HargaController */
-/* @var $model Harga */
-/* @var $form CActiveForm */
+$this->pageTitle = 'Rekap Transaksi';
+$this->breadcrumbs = array(
+    'Rekap Transaksi'
+);
 ?>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
+    	<?php echo Yii::app()->user->getFlash('info') ?>
         <div class="portlet box yellow">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-search"></i>Form Harga
+                    <i class="fa fa-files"></i>Rekap Transaksi
                 </div>
                 <div class="tools"></div>
             </div>
@@ -17,7 +19,7 @@
                 <!-- BEGIN FORM-->
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'harga-form',
+                    'id' => 'rekap-form',
                     // Please note: When you enable ajax validation, make sure the corresponding
                     // controller action is handling ajax validation correctly.
                     // There is a call to performAjaxValidation() commented in generated controller code.
@@ -31,33 +33,25 @@
                 ));
                 ?>
 
-                <p class="note">Fields with <span class="required">*</span> are required.</p>
-
                 <div class="form-body">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <?php echo $form->labelEx($model, 'KODE_ITEM', array('class' => 'control-label')); ?>
-                                <?php echo $form->dropDownList($model, 'KODE_ITEM', Item::ListGrup(), array('class' => 'form-control select2me', 'disabled' => true)); ?>
+                                <?php echo $form->labelEx($model, 'BULAN', array('class' => 'control-label')); ?>
+                                <?php echo $form->dropDownList($model, 'BULAN', FormRekap::listBulan(), array('class' => 'form-control', 'prompt' => '-- Pilih Bulan --')); ?>
+                                <?php echo $form->error($model,'BULAN'); ?>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <?php echo $form->labelEx($model, 'KODE_TIPE_LAUNDRY', array('class' => 'control-label')); ?>
-                                <?php echo $form->dropDownList($model, 'KODE_TIPE_LAUNDRY', TipeLaundry::listAll(), array('class' => 'form-control', 'prompt' => '-- Pilih Tipe Laundry --', 'disabled' => true)); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <?php echo $form->labelEx($model, 'NOMINAL_HARGA', array('class' => 'control-label')); ?>
-                                <div class="input-group">
-                                    <span class="input-group-addon">Rp.</span>
-                                    <?php echo $form->textField($model, 'NOMINAL_HARGA', array('class' => 'form-control')); ?>
-                                </div>
+                                <?php echo $form->labelEx($model, 'TAHUN', array('class' => 'control-label')); ?>
+                                <?php echo $form->dropDownList($model, 'TAHUN', FormRekap::listTahun(), array('class' => 'form-control', 'prompt' => '-- Pilih Tahun --')); ?>
+                                <?php echo $form->error($model,'TAHUN'); ?>
                             </div>
                         </div>
                     </div>
                     <!--/row-->
+                    <small><span class="required">*</span>) wajib diisi</small>
                 </div>
                 <div class="form-actions center">
                     <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>

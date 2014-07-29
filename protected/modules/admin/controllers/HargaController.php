@@ -26,7 +26,7 @@ class HargaController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'nonaktif'),
+                'actions' => array('index', 'nonaktif', 'update'),
                 'users' => array('@'),
                 'roles' => array(WebUser::ROLE_ADMIN)
             ),

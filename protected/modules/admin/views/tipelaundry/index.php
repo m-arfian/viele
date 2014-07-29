@@ -55,9 +55,9 @@ $('.search-form form').submit(function(){
                     //styling pagination
                     'pager' => array(
                         'header' => '',
-                        'selectedPageCssClass' => 'active',
-                        'hiddenPageCssClass' => 'disabled',
-                        'htmlOptions' => array('class' => ''),
+                        'selectedPageCssClass' => 'paginate_button active',
+                        'hiddenPageCssClass' => 'paginate_button disabled',
+                        'htmlOptions' => array('class' => 'pagination'),
                     ),
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
@@ -78,7 +78,7 @@ $('.search-form form').submit(function(){
                             'class' => 'MyCButtonColumn',
                             'buttons' => array(
                                 'delete' => array(
-                                    'url' => 'array("nonaktif", "id" => $data->KODE_TIPE_LAUNDRY, "ajax" => "false")',
+                                    'url' => 'array("nonaktif", "id" => $data->KODE_TIPE_LAUNDRY)',
                                 )
                             )
                         ),

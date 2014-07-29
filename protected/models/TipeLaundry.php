@@ -29,6 +29,7 @@ class TipeLaundry extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('NAMA_TIPE_LAUNDRY', 'required'),
             array('STATUS_TIPE_LAUNDRY', 'numerical', 'integerOnly' => true),
             array('NAMA_TIPE_LAUNDRY', 'length', 'max' => 255),
             // The following rule is used by search().

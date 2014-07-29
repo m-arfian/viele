@@ -132,5 +132,17 @@ class Pelanggan extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
+    
+    protected function afterSave() {
+        if ($this->scenario == 'baru') {
+            $notif = new Notifikasi('baru');
+            $notif->TIPE_NOTIFIKASI = 'NP';
+            $notif->LINK_NOTIFIKASI = Yii::app()->baseUrl . "/admin/pelanggan/view/$this->KODE_PELANGGAN";
+            $notif->TEKS_NOTIFIKASI = "Pelanggan baru #$this->NAMA_PELANGGAN";
+            $notif->save();
+        }
+
+        return parent::afterSave();
+    }
 
 }

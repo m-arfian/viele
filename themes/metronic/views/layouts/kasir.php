@@ -1,15 +1,4 @@
 <!DOCTYPE html>
-<!-- 
-Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.2.0
-Version: 3.1.1
-Author: KeenThemes
-Website: http://www.keenthemes.com/
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Like: www.facebook.com/keenthemes
-Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
-License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
--->
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
@@ -86,7 +75,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             <?php echo CHtml::link('Pelanggan <i class="fa fa-angle-down"></i>', "javascript:;", array('data-hover' => 'dropdown', 'data-close-others' => 'true', 'data-toggle' => 'dropdown')) ?>
                             <ul class="dropdown-menu pull-left">
                                 <li>
-                                    <?php echo CHtml::link('<i class="icon-user-add"></i> Tambah Pelanggan', array('/pelanggan')) ?>
+                                    <?php echo CHtml::link('<i class="icon-user-add"></i> Daftar Pelanggan', array('/pelanggan')) ?>
+                                </li>
+                                <li>
+                                    <?php echo CHtml::link('<i class="icon-user-add"></i> Tambah Pelanggan', array('/pelanggan/create')) ?>
                                 </li>
                             </ul>
                         </li>
@@ -1300,6 +1292,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 Metronic.init(); // init metronic core components
                 Layout.init(); // init current layout
                 QuickSidebar.init() // init quick sidebar
+
+                $('.dp').datepicker();
             });
         </script>
         <!-- END JAVASCRIPTS -->

@@ -50,7 +50,7 @@ class TipelaundryController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new TipeLaundry;
+        $model = new TipeLaundry('baru');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -73,6 +73,7 @@ class TipelaundryController extends Controller {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        $model->scenario = 'edit';
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
@@ -103,11 +104,11 @@ class TipelaundryController extends Controller {
     
     public function actionNonaktif($id, $ajax = true) {
         $model = $this->loadModel($id);
-        $model->STATUS_PELANGGAN = Pelanggan::NONAKTIF;
+        $model->STATUS_TIPE_LAUNDRY = TipeLaundry::NONAKTIF;
         $model->update();
         
         if($ajax == false || $_GET['ajax'] == false)
-            $this->redirect(array('view', 'id' => $model->KODE_PELANGGAN));
+            $this->redirect(array('view', 'id' => $model->KODE_TIPE_LAUNDRY));
     }
 
     /**

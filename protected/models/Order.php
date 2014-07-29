@@ -20,10 +20,9 @@ class Order extends CActiveRecord {
 
     const AMBIL = 1, ANTAR = 2;
     const PENDING = 0, SELESAI = 1, DIAMBIL = 2;
-    
-    private $SUBTOTAL, $TOTAL;
-    public $NAMA;
-    
+
+    public $NAMA, $SUBTOTAL, $TOTAL;
+
     /**
      * @return string the associated database table name
      */
@@ -40,6 +39,7 @@ class Order extends CActiveRecord {
         return array(
             array('KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, STATUS_ORDER', 'required', 'on' => 'baru, edit', 'message' => '{attribute} wajib diisi'),
             array('KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, STATUS_ORDER', 'numerical', 'integerOnly' => true),
+            array('BIAYA_ANTAR', 'numerical', 'message' => '{attribute} harus diisi angka'),
             array('TGL_ORDER, TGL_DIAMBIL, TGL_SELESAI, KETERANGAN', 'safe'),
             array('USERNAME', 'length', 'max' => 25),
             // The following rule is used by search().
@@ -70,6 +70,7 @@ class Order extends CActiveRecord {
             'KODE_PELANGGAN' => 'Kode Pelanggan',
             'ESTIMASI_SELESAI' => 'Estimasi Selesai',
             'PENGAMBILAN' => 'Pengambilan',
+            'BIAYA_ANTAR' => 'Biaya Antar',
             'DISKON' => 'Diskon',
             'TGL_ORDER' => 'Tanggal Order',
             'TGL_SELESAI' => 'Tanggal Selesai',
@@ -105,10 +106,11 @@ class Order extends CActiveRecord {
         $criteria->compare('KODE_PELANGGAN', $this->KODE_PELANGGAN);
         $criteria->compare('ESTIMASI_SELESAI', $this->ESTIMASI_SELESAI);
         $criteria->compare('PENGAMBILAN', $this->PENGAMBILAN);
+        $criteria->compare('BIAYA_ANTAR', $this->BIAYA_ANTAR);
         $criteria->compare('DISKON', $this->DISKON);
-        $criteria->compare('TGL_ORDER',$this->TGL_ORDER,true);
-        $criteria->compare('TGL_SELESAI',$this->TGL_SELESAI,true);
-        $criteria->compare('TGL_DIAMBIL',$this->TGL_DIAMBIL,true);
+        $criteria->compare('TGL_ORDER', $this->TGL_ORDER, true);
+        $criteria->compare('TGL_SELESAI', $this->TGL_SELESAI, true);
+        $criteria->compare('TGL_DIAMBIL', $this->TGL_DIAMBIL, true);
         $criteria->compare('KETERANGAN', $this->KETERANGAN, true);
         $criteria->compare('USERNAME', $this->USERNAME, true);
         $criteria->compare('STATUS_ORDER', $this->STATUS_ORDER);
@@ -128,37 +130,56 @@ class Order extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     protected function beforeValidate() {
-        if($this->scenario == 'baru') {
+        if ($this->scenario == 'baru') {
             $this->TGL_ORDER = date('Y-m-d H:i:s');
             $this->STATUS_ORDER = self::PENDING;
             $this->USERNAME = Yii::app()->user->nama;
-        }
-        else if($this->scenario == 'selesai') {
+        } else if ($this->scenario == 'selesai') {
             $this->TGL_SELESAI = date('Y-m-d H:i:s');
             $this->STATUS_ORDER = self::SELESAI;
-        }
-        else if($this->scenario == 'ambil') {
+        } else if ($this->scenario == 'ambil') {
             $this->TGL_DIAMBIL = date('Y-m-d H:i:s');
             $this->STATUS_ORDER = self::AMBIL;
         }
+        
+        $this->BIAYA_ANTAR = str_replace('.', '', $this->BIAYA_ANTAR);
+        
         return parent::beforeValidate();
     }
-    
-    public function getSubtotal() {
-        $this->SUBTOTAL = 0;
-        foreach ($this->orderdetail as $detail) {
-            $this->SUBTOTAL += ($detail->REAL_HARGA * $detail->JUMLAH);
+
+    protected function afterSave() {
+        if ($this->scenario == 'baru') {
+            $notif = new Notifikasi('baru');
+            $notif->TIPE_NOTIFIKASI = 'NO';
+            $notif->LINK_NOTIFIKASI = Yii::app()->baseUrl . "/admin/order/view/$this->KODE_ORDER";
+            $notif->TEKS_NOTIFIKASI = "Order baru #$this->KODE_ORDER";
+            $notif->save();
         }
-        
-        return $this->SUBTOTAL;
+
+        return parent::afterSave();
     }
-    
+
+    protected function afterFind() {
+        parent::afterFind();
+        $this->SUBTOTAL = $this->getSubtotal();
+        $this->TOTAL = $this->getTotal();
+    }
+
+    public function getSubtotal() {
+        $subtotal = 0;
+        foreach ($this->orderdetail as $detail) {
+            $subtotal += ($detail->REAL_HARGA * $detail->JUMLAH);
+        }
+
+        return $subtotal;
+    }
+
     public function getTotal() {
-        $this->TOTAL = $this->getSubtotal();
-        
-        return $this->TOTAL - ($this->TOTAL * ($this->DISKON / 100));
+        $subtotal = $this->SUBTOTAL;
+
+        return $subtotal - ($subtotal * ($this->DISKON / 100)) + $this->BIAYA_ANTAR;
     }
 
     public function getStatus() {
@@ -173,7 +194,7 @@ class Order extends CActiveRecord {
                 return '';
         }
     }
-    
+
     public function getPengambilan() {
         switch ($this->PENGAMBILAN) {
             case self::AMBIL:
@@ -184,7 +205,7 @@ class Order extends CActiveRecord {
                 return '';
         }
     }
-    
+
     public static function listStatus() {
         return array(
             self::PENDING => 'Pending',
@@ -192,12 +213,25 @@ class Order extends CActiveRecord {
             self::DIAMBIL => 'Sudah diambil'
         );
     }
-    
+
     public static function listPengambilan() {
         return array(
             self::AMBIL => 'Diambil sendiri',
             self::ANTAR => 'Diantar',
         );
+    }
+
+    public static function todayKredit($day, $month, $year) {
+        $date = date('Y-m-d', strtotime($year.'-'.$month.'-'.$day));
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = "TGL_ORDER like '$date%'";
+        $order = self::model()->findAll($criteria);
+
+        $total = 0;
+        foreach ($order as $o) { $total += $o->TOTAL; }
+
+        return $total;
     }
 
 }
