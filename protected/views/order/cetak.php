@@ -7,7 +7,7 @@
                 body{
                     background: white !important;
                     width: 470px;
-                    font-family: courier;
+                    font-family: arial;
                     height: auto;
                     margin: 0 !important;
                     letter-spacing: 10px;
