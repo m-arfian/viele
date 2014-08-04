@@ -54,6 +54,14 @@ class SiteController extends Controller {
         $pelanggan->unsetAttributes();  // clear any default values
         if (isset($_GET['Pelanggan']))
             $pelanggan->attributes = $_GET['Pelanggan'];
+
+        $newpl = new Pelanggan('baru');
+
+        if (isset($_POST['Pelanggan'])) {
+            $newpl->attributes = $_POST['Pelanggan'];
+            if ($newpl->save())
+                $this->redirect(array('/site?plgid=$model->KODE_PELANGGAN'));
+        }
         
         $order = new Order('search');
         $order->unsetAttributes();  // clear any default values
@@ -101,7 +109,8 @@ class SiteController extends Controller {
         $this->render('index', array(
             'order' => $order,
             'pelanggan' => $pelanggan,
-            'orderbaru' => $orderbaru
+            'orderbaru' => $orderbaru,
+            'plgbaru' => $newpl
         ));
     }
 
@@ -139,7 +148,7 @@ class SiteController extends Controller {
                 if(WebUser::isAdmin())
                     $this->redirect(array('/admin'));
                 else
-                    $this->redirect (array('/'));
+                    $this->redirect (array('/site'));
         }
         // display the login form
         $this->render('login', array('model' => $model));

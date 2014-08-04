@@ -25,7 +25,7 @@ class PelangganController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'update', 'view'),
+                'actions' => array('index', 'update', 'view', 'create'),
                 'users' => array('@'),
                 'roles' => array(WebUser::ROLE_KASIR)
             ),

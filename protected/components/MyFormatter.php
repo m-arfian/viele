@@ -113,6 +113,12 @@ class MyFormatter extends CFormatter {
         return substr($date[2], 0, 2) . ' ' . $bulan . ' ' . $date[0] . ' ' . date('H:i', strtotime($value)) . ' WIB';
     }
 
+    public static function formatTanggalWaktu2($value) {
+        $date = explode('-', $value);
+        
+        return substr($date[2], 0, 2) . '-' . $date[1] . '-' . $date[0] . ' ' . date('H:i', strtotime($value)) . ' WIB';
+    }
+
     public static function formatStatusAktif($value) {
         if ($value == 1)
             return '<span class="label label-info">Aktif</span>';

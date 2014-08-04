@@ -49,9 +49,7 @@
             <div class="page-header-inner">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <a href="index.php">
-                        <img src="<?php echo Yii::app()->theme->baseUrl ?>/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
-                    </a>
+                    <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/assets/admin/layout/img/logo.png', 'logo', array('class' => 'logo-default')), array('/site')) ?>
                 </div>
                 <!-- END LOGO -->
                 <!-- BEGIN HORIZANTAL MENU -->
@@ -588,7 +586,7 @@
                         <div class="col-md-12">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                Kasir Laundry XXX <small><?php echo $this->pageTitle ?></small>
+                                Kasir Viele Laundry <small><?php echo $this->pageTitle ?></small>
                             </h3>
                             
                             <?php $this->renderPartial('//layouts/part/_breadcrumb') ?>

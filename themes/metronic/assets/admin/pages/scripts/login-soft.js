@@ -126,7 +126,7 @@ var Login = function () {
 
 		function format(state) {
             if (!state.id) return state.text; // optgroup
-            return "<img class='flag' src='../../assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
+            return "<img class='flag' src='/localhost/laundry/themes/metronic/assets/global/img/flags/" + state.id.toLowerCase() + ".png'/>&nbsp;&nbsp;" + state.text;
         }
 
 
@@ -250,10 +250,10 @@ var Login = function () {
             handleRegister();        
 	       
 	       	$.backstretch([
-		        "../../assets/admin/pages/media/bg/1.jpg",
-    		    "../../assets/admin/pages/media/bg/2.jpg",
-    		    "../../assets/admin/pages/media/bg/3.jpg",
-    		    "../../assets/admin/pages/media/bg/4.jpg"
+		        "/laundry/themes/metronic/assets/admin/pages/media/bg/1.jpg",
+    		    "/laundry/themes/metronic/assets/admin/pages/media/bg/2.jpg",
+    		    "/laundry/themes/metronic/assets/admin/pages/media/bg/3.jpg",
+    		    "/laundry/themes/metronic/assets/admin/pages/media/bg/4.jpg"
 		        ], {
 		          fade: 1000,
 		          duration: 8000

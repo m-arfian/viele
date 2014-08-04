@@ -31,8 +31,6 @@
                 ));
                 ?>
 
-                <p class="note">Fields with <span class="required">*</span> are required.</p>
-
                 <div class="form-body">
                     <div class="row">
                         <div class="col-md-3">
@@ -58,6 +56,7 @@
                         </div>
                     </div>
                     <!--/row-->
+                    <small><span class="required">*</span>) wajib diisi</small>
                 </div>
                 <div class="form-actions center">
                     <?php echo CHtml::submitButton('Simpan', array('class' => 'btn blue')); ?>

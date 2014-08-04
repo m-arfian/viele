@@ -7,7 +7,7 @@
                 body{
                     background: white !important;
                     width: 470px;
-                    font-family: arial;
+                    font-family: courier;
                     height: auto;
                     margin: 0 !important;
                     letter-spacing: 10px;
@@ -53,17 +53,25 @@
     <body>
         <div class="centered">
             <div class="logo">VIELE LAUNDRY</div>
-            <div>Jl. Wonocolo Sepanjang No 52 Sidoarjo</div>
-            <div>087752639514</div>
+            <div>Jl. Gunungsari 31 - 33 Surabaya</div>
+            <div>031 - 5679813</div>
         </div>
-        ----------------------------------------
+        -------------------------------
         <div>
             <table>
                 <tr><td>No Nota</td><td>:</td><td><?php echo $model->KODE_ORDER ?></td></tr>
-                <tr><td>Tgl Pesan</td><td>:</td><td><?php echo MyFormatter::formatTanggalWaktu($model->TGL_ORDER) ?></td></tr>
+                <tr><td>Tgl Pesan</td><td>:</td><td><?php echo MyFormatter::formatTanggalWaktu2($model->TGL_ORDER) ?></td></tr>
             </table>
         </div>
-        ----------------------------------------
+        -------------------------------
+        <div>
+            <table>
+                <tr><td>Nama</td><td>:</td><td><?php echo $model->pelanggan->NAMA_PELANGGAN ?></td></tr>
+                <tr><td>Alamat</td><td>:</td><td><?php echo $model->pelanggan->ALAMAT_PELANGGAN ?></td></tr>
+                <tr><td>No HP</td><td>:</td><td><?php echo $model->pelanggan->KONTAK ?></td></tr>
+            </table>
+        </div>
+        -------------------------------
         <div>
             <table>
                 <?php foreach ($model->orderdetail as $i => $detail): ?>
@@ -73,15 +81,15 @@
                         <td><?php echo MyFormatter::formatUang2($detail->REAL_HARGA * $detail->JUMLAH) ?></td>
                     </tr>
                 <?php endforeach ?>
+                <tr><td colspan="3">-------------------------------</td></tr>
                 <tr><td colspan="2">Subtotal :</td><td><?php echo MyFormatter::formatUang2($model->SUBTOTAL) ?></td></tr>
-                <tr><td colspan="2">Diskon :</td><td><?php echo $model->DISKON . '%' ?></td></tr>
+                <!-- <tr><td colspan="2">Diskon :</td><td><?php echo $model->DISKON . '%' ?></td></tr> -->
                 <?php // if ($model->BIAYA_ANTAR == Order::ANTAR): ?>
-                <tr><td colspan="2">Biaya Antar :</td><td><?php echo MyFormatter::formatUang2($model->BIAYA_ANTAR) ?></td></tr>
+                <tr><td colspan="2">Biaya Tambahan :</td><td><?php echo MyFormatter::formatUang2($model->BIAYA_ANTAR) ?></td></tr>
                 <?php // endif ?>
                 <tr><td colspan="2">Total :</td><td><?php echo MyFormatter::formatUang2($model->TOTAL) ?></td></tr>
             </table>
         </div>
-        ----------------------------------------
         <div class="centered">
             <p>Terima kasih atas kunjungannya.</p>
         </div>

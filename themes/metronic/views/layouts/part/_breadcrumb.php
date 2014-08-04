@@ -6,7 +6,7 @@ if (WebUser::isAdmin())
         'Administrator' => array('/admin'),
     ), $this->breadcrumbs);
 else
-    $this->breadcrumbs = array_merge(array('<i class="fa fa-home"></i> Home' => array('/')), $this->breadcrumbs);
+    $this->breadcrumbs = array_merge(array('<i class="fa fa-home"></i> Home' => array('/site')), $this->breadcrumbs);
 
 $this->widget('zii.widgets.CBreadcrumbs', array(
     'links' => $this->breadcrumbs,

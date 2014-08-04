@@ -9,9 +9,10 @@
         <th>NAMA PELANGGAN</th>
         <th>SUBTOTAL</th>
         <th>DISKON</th>
-        <th>BIAYA ANTAR</th>
+        <th>BIAYA TAMBAHAN</th>
         <th>TOTAL</th>
     </tr>
+    <?php $grandtotal = 0 ?>
     <?php foreach ($order as $data): ?>
         <tr>
             <td><?php echo $data->KODE_ORDER ?></td>
@@ -23,5 +24,10 @@
             <td><?php echo MyFormatter::formatUang($data->BIAYA_ANTAR) ?></td>
             <td><?php echo MyFormatter::formatUang($data->TOTAL) ?></td>
         </tr>
+    <?php $grandtotal += $data->TOTAL ?>
     <?php endforeach ?>
+    <tr>
+        <th colspan="7">TOTAL PER BULAN</th>
+        <th><?php echo MyFormatter::formatUang($grandtotal) ?></th>
+    </tr>
 </table>

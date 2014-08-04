@@ -1,9 +1,7 @@
 <body class="login">
     <!-- BEGIN LOGO -->
     <div class="logo">
-        <a href="index.html">
-            <img src="<?php echo Yii::app()->theme->baseUrl ?>/assets/admin/layout/img/logo-big.png" alt=""/>
-        </a>
+        <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/assets/admin/layout/img/logo-big.png'), array('/site/login')) ?>
     </div>
     <!-- END LOGO -->
     <!-- BEGIN SIDEBAR TOGGLER BUTTON -->

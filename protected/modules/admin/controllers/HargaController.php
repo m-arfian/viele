@@ -81,7 +81,7 @@ class HargaController extends Controller {
         if (isset($_POST['Harga'])) {
             $model->attributes = $_POST['Harga'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->KODE_HARGA));
+                $this->redirect(array('update', 'id' => $model->KODE_HARGA));
         }
 
         $this->render('update', array(

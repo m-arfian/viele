@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50532
 File Encoding         : 65001
 
-Date: 2014-07-29 20:39:36
+Date: 2014-08-01 10:43:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `harga` (
   KEY `KODE_TIPE_LAUNDRY` (`KODE_TIPE_LAUNDRY`),
   CONSTRAINT `harga_ibfk_1` FOREIGN KEY (`KODE_ITEM`) REFERENCES `m_item` (`KODE_ITEM`) ON UPDATE CASCADE,
   CONSTRAINT `harga_ibfk_2` FOREIGN KEY (`KODE_TIPE_LAUNDRY`) REFERENCES `tipe_laundry` (`KODE_TIPE_LAUNDRY`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of harga
@@ -60,7 +60,71 @@ INSERT INTO `harga` VALUES ('22', '5', '1', '10000', '1');
 INSERT INTO `harga` VALUES ('23', '5', '2', '11000', '1');
 INSERT INTO `harga` VALUES ('24', '5', '2', '11000', '0');
 INSERT INTO `harga` VALUES ('25', '5', '3', '6000', '1');
-INSERT INTO `harga` VALUES ('26', '4', '2', '10000', '1');
+INSERT INTO `harga` VALUES ('26', '4', '2', '10000', '0');
+INSERT INTO `harga` VALUES ('27', '1', '1', '9000', '1');
+INSERT INTO `harga` VALUES ('28', '6', '1', '11000', '1');
+INSERT INTO `harga` VALUES ('29', '6', '2', '10000', '1');
+INSERT INTO `harga` VALUES ('30', '6', '3', '7000', '1');
+INSERT INTO `harga` VALUES ('31', '7', '1', '19000', '1');
+INSERT INTO `harga` VALUES ('32', '7', '2', '20000', '1');
+INSERT INTO `harga` VALUES ('33', '7', '3', '13000', '1');
+INSERT INTO `harga` VALUES ('34', '8', '1', '18000', '1');
+INSERT INTO `harga` VALUES ('35', '8', '2', '18400', '1');
+INSERT INTO `harga` VALUES ('36', '8', '3', '12000', '1');
+INSERT INTO `harga` VALUES ('37', '9', '1', '5000', '1');
+INSERT INTO `harga` VALUES ('38', '9', '2', '5000', '1');
+INSERT INTO `harga` VALUES ('39', '9', '3', '3000', '1');
+INSERT INTO `harga` VALUES ('40', '10', '1', '7000', '1');
+INSERT INTO `harga` VALUES ('41', '10', '2', '8000', '1');
+INSERT INTO `harga` VALUES ('42', '10', '3', '5000', '1');
+INSERT INTO `harga` VALUES ('43', '11', '1', '6000', '1');
+INSERT INTO `harga` VALUES ('44', '11', '2', '7000', '1');
+INSERT INTO `harga` VALUES ('45', '11', '3', '5000', '1');
+INSERT INTO `harga` VALUES ('46', '12', '1', '4000', '1');
+INSERT INTO `harga` VALUES ('47', '13', '1', '4000', '1');
+INSERT INTO `harga` VALUES ('48', '14', '1', '6000', '1');
+INSERT INTO `harga` VALUES ('49', '14', '2', '7000', '1');
+INSERT INTO `harga` VALUES ('50', '14', '3', '4000', '1');
+INSERT INTO `harga` VALUES ('51', '15', '1', '12000', '1');
+INSERT INTO `harga` VALUES ('52', '15', '2', '13000', '1');
+INSERT INTO `harga` VALUES ('53', '15', '3', '8000', '1');
+INSERT INTO `harga` VALUES ('54', '16', '1', '6000', '1');
+INSERT INTO `harga` VALUES ('55', '16', '2', '7000', '1');
+INSERT INTO `harga` VALUES ('56', '16', '3', '5000', '1');
+INSERT INTO `harga` VALUES ('57', '17', '1', '8000', '1');
+INSERT INTO `harga` VALUES ('58', '17', '2', '9000', '1');
+INSERT INTO `harga` VALUES ('59', '18', '1', '8000', '1');
+INSERT INTO `harga` VALUES ('60', '18', '2', '9000', '1');
+INSERT INTO `harga` VALUES ('61', '19', '1', '8000', '1');
+INSERT INTO `harga` VALUES ('62', '19', '2', '9000', '1');
+INSERT INTO `harga` VALUES ('63', '20', '1', '9000', '1');
+INSERT INTO `harga` VALUES ('64', '20', '2', '10000', '1');
+INSERT INTO `harga` VALUES ('65', '20', '3', '6000', '1');
+INSERT INTO `harga` VALUES ('66', '21', '1', '10000', '1');
+INSERT INTO `harga` VALUES ('67', '21', '2', '11000', '1');
+INSERT INTO `harga` VALUES ('68', '21', '3', '7000', '1');
+INSERT INTO `harga` VALUES ('69', '22', '1', '10000', '1');
+INSERT INTO `harga` VALUES ('70', '22', '2', '12000', '1');
+INSERT INTO `harga` VALUES ('71', '22', '3', '7000', '1');
+INSERT INTO `harga` VALUES ('72', '23', '1', '15000', '1');
+INSERT INTO `harga` VALUES ('73', '23', '2', '15000', '1');
+INSERT INTO `harga` VALUES ('74', '23', '3', '9000', '1');
+INSERT INTO `harga` VALUES ('75', '24', '1', '10000', '1');
+INSERT INTO `harga` VALUES ('76', '24', '2', '11000', '1');
+INSERT INTO `harga` VALUES ('77', '24', '3', '7000', '1');
+INSERT INTO `harga` VALUES ('78', '25', '1', '4000', '1');
+INSERT INTO `harga` VALUES ('79', '25', '2', '5000', '1');
+INSERT INTO `harga` VALUES ('80', '25', '3', '3000', '1');
+INSERT INTO `harga` VALUES ('81', '26', '1', '6500', '1');
+INSERT INTO `harga` VALUES ('82', '26', '2', '7500', '1');
+INSERT INTO `harga` VALUES ('83', '26', '3', '5000', '1');
+INSERT INTO `harga` VALUES ('84', '27', '1', '6000', '1');
+INSERT INTO `harga` VALUES ('85', '27', '2', '7000', '1');
+INSERT INTO `harga` VALUES ('86', '27', '3', '5000', '1');
+INSERT INTO `harga` VALUES ('87', '28', '1', '3500', '1');
+INSERT INTO `harga` VALUES ('88', '29', '1', '3500', '1');
+INSERT INTO `harga` VALUES ('89', '30', '1', '7500', '1');
+INSERT INTO `harga` VALUES ('90', '4', '1', '4000', '1');
 
 -- ----------------------------
 -- Table structure for `m_item`
@@ -74,7 +138,7 @@ CREATE TABLE `m_item` (
   PRIMARY KEY (`KODE_ITEM`),
   KEY `KODE_TIPE` (`KODE_TIPE`),
   CONSTRAINT `m_item_ibfk_1` FOREIGN KEY (`KODE_TIPE`) REFERENCES `m_tipe` (`KODE_TIPE`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of m_item
@@ -84,6 +148,31 @@ INSERT INTO `m_item` VALUES ('2', 'Celana Panjang', '1', '1');
 INSERT INTO `m_item` VALUES ('3', 'Blus', '2', '1');
 INSERT INTO `m_item` VALUES ('4', 'Kaus Kaki', '3', '1');
 INSERT INTO `m_item` VALUES ('5', 'Sweater', '3', '1');
+INSERT INTO `m_item` VALUES ('6', 'Jas', '1', '1');
+INSERT INTO `m_item` VALUES ('7', 'Setelan (2 Lembar)', '1', '1');
+INSERT INTO `m_item` VALUES ('8', 'Setelan Safari', '1', '1');
+INSERT INTO `m_item` VALUES ('9', 'Dasi', '1', '1');
+INSERT INTO `m_item` VALUES ('10', 'Kaus', '1', '1');
+INSERT INTO `m_item` VALUES ('11', 'Celana Pendek', '1', '1');
+INSERT INTO `m_item` VALUES ('12', 'Celana Dalam', '1', '1');
+INSERT INTO `m_item` VALUES ('13', 'Kaus Dalam', '1', '1');
+INSERT INTO `m_item` VALUES ('14', 'Rompi', '3', '1');
+INSERT INTO `m_item` VALUES ('15', 'Mantel', '3', '1');
+INSERT INTO `m_item` VALUES ('16', 'Sarung', '3', '1');
+INSERT INTO `m_item` VALUES ('17', 'Mantel Mandi', '3', '1');
+INSERT INTO `m_item` VALUES ('18', 'Kimono', '3', '1');
+INSERT INTO `m_item` VALUES ('19', 'Piyama', '3', '1');
+INSERT INTO `m_item` VALUES ('20', 'Rok', '2', '1');
+INSERT INTO `m_item` VALUES ('21', 'Celana Panjang', '2', '1');
+INSERT INTO `m_item` VALUES ('22', 'Gaun', '2', '1');
+INSERT INTO `m_item` VALUES ('23', 'Gaun Panjang', '2', '1');
+INSERT INTO `m_item` VALUES ('24', 'Jas', '2', '1');
+INSERT INTO `m_item` VALUES ('25', 'Selendang', '2', '1');
+INSERT INTO `m_item` VALUES ('26', 'Kaus', '2', '1');
+INSERT INTO `m_item` VALUES ('27', 'Celana Pendek', '2', '1');
+INSERT INTO `m_item` VALUES ('28', 'Celana Dalam', '2', '1');
+INSERT INTO `m_item` VALUES ('29', 'Bra (BH)', '2', '1');
+INSERT INTO `m_item` VALUES ('30', 'Gaun Malam', '2', '1');
 
 -- ----------------------------
 -- Table structure for `m_tipe`
@@ -115,7 +204,7 @@ CREATE TABLE `notifikasi` (
   `TGL_NOTIFIKASI` datetime DEFAULT NULL,
   `STATUS_NOTIFIKASI` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`KODE_NOTIFIKASI`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of notifikasi
@@ -124,7 +213,8 @@ INSERT INTO `notifikasi` VALUES ('1', 'NP', 'Pelanggan baru #Lalala', '/laundry/
 INSERT INTO `notifikasi` VALUES ('2', 'NO', 'Order baru #4', '/laundry/admin/order/view/4', '2014-07-25 13:07:05', '0');
 INSERT INTO `notifikasi` VALUES ('3', 'NO', 'Order baru #5', '/laundry/admin/order/view/5', '2014-07-26 14:04:23', '0');
 INSERT INTO `notifikasi` VALUES ('4', 'NP', 'Pelanggan baru #umar', '/laundry/admin/pelanggan/view/6', '2014-07-26 14:24:22', '0');
-INSERT INTO `notifikasi` VALUES ('5', 'NO', 'Order baru #6', '/laundry/admin/order/view/6', '2014-07-29 15:58:44', '1');
+INSERT INTO `notifikasi` VALUES ('5', 'NO', 'Order baru #6', '/laundry/admin/order/view/6', '2014-07-29 15:58:44', '0');
+INSERT INTO `notifikasi` VALUES ('6', 'NO', 'Order baru #7', '/laundry/admin/order/view/7', '2014-08-01 08:10:30', '0');
 
 -- ----------------------------
 -- Table structure for `order`
@@ -148,7 +238,7 @@ CREATE TABLE `order` (
   KEY `USERNAME` (`USERNAME`),
   CONSTRAINT `order_ibfk_1` FOREIGN KEY (`KODE_PELANGGAN`) REFERENCES `pelanggan` (`KODE_PELANGGAN`) ON UPDATE CASCADE,
   CONSTRAINT `order_ibfk_2` FOREIGN KEY (`USERNAME`) REFERENCES `user` (`USERNAME`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of order
@@ -159,6 +249,7 @@ INSERT INTO `order` VALUES ('000003', '3', '2', '2', '0', '0', '2014-07-21 09:57
 INSERT INTO `order` VALUES ('000004', '5', '1', '2', '5000', '0', '2014-07-25 13:07:05', null, null, '', 'admin', '0');
 INSERT INTO `order` VALUES ('000005', '3', '2', '1', '0', '0', '2014-07-26 14:04:23', null, null, '', 'kasir', '2');
 INSERT INTO `order` VALUES ('000006', '4', '2', '2', '10000', '1', '2014-07-29 15:58:43', null, null, 'tes', 'kasir', '0');
+INSERT INTO `order` VALUES ('000007', '3', '2', '3', '13000', '0', '2014-08-01 08:10:30', null, null, 'eksples', 'kasir', '0');
 
 -- ----------------------------
 -- Table structure for `order_detail`
@@ -177,7 +268,7 @@ CREATE TABLE `order_detail` (
   KEY `KODE_HARGA` (`KODE_HARGA`),
   CONSTRAINT `order_detail_ibfk_1` FOREIGN KEY (`KODE_ORDER`) REFERENCES `order` (`KODE_ORDER`) ON UPDATE CASCADE,
   CONSTRAINT `order_detail_ibfk_2` FOREIGN KEY (`KODE_HARGA`) REFERENCES `harga` (`KODE_HARGA`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of order_detail
@@ -210,6 +301,17 @@ INSERT INTO `order_detail` VALUES ('66', '000006', '13', '6000', '2', '0', '1');
 INSERT INTO `order_detail` VALUES ('67', '000006', '15', '11000', '3', '0', '1');
 INSERT INTO `order_detail` VALUES ('68', '000006', '19', '9000', '4', '0', '1');
 INSERT INTO `order_detail` VALUES ('69', '000006', '23', '11000', '5', '0', '1');
+INSERT INTO `order_detail` VALUES ('70', '000007', '27', '9000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('71', '000007', '15', '11000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('72', '000007', '32', '20000', '2', '0', '1');
+INSERT INTO `order_detail` VALUES ('73', '000007', '37', '5000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('74', '000007', '63', '9000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('75', '000007', '69', '10000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('76', '000007', '75', '10000', '3', '0', '1');
+INSERT INTO `order_detail` VALUES ('77', '000007', '79', '5000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('78', '000007', '87', '3500', '2', '0', '1');
+INSERT INTO `order_detail` VALUES ('79', '000007', '26', '10000', '1', '0', '1');
+INSERT INTO `order_detail` VALUES ('80', '000007', '48', '6000', '4', '0', '1');
 
 -- ----------------------------
 -- Table structure for `pelanggan`

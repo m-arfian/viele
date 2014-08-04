@@ -40,7 +40,6 @@ $this->breadcrumbs = array(
                                 'value' => $model->KELAMIN
                             ),
                             'KONTAK',
-                            'EMAIL',
                         /* array(
                           'name' => 'STATUS_PELANGGAN',
                           'type' => 'statusaktif',

@@ -57,7 +57,7 @@
             <div class="page-header-inner">
                 <!-- BEGIN LOGO -->
                 <div class="page-logo">
-                    <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/assets/admin/layout/img/logo.png', 'logo', array('class' => 'logo-default'), array('/admin'))) ?>
+                    <?php echo CHtml::link(CHtml::image(Yii::app()->theme->baseUrl . '/assets/admin/layout/img/logo.png', 'logo', array('class' => 'logo-default')), array('/admin')) ?>
                     <div class="menu-toggler sidebar-toggler hide">
                         <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
                     </div>
@@ -139,7 +139,7 @@
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <h3 class="page-title">
-                        SIM Laundry XXX <small><?php echo $this->pageTitle ?></small>
+                        SIM Viele Laundry <small><?php echo $this->pageTitle ?></small>
                     </h3>
                     
                     <?php $this->renderPartial('//layouts/part/_breadcrumb') ?>

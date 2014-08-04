@@ -18,10 +18,10 @@
  */
 class Order extends CActiveRecord {
 
-    const AMBIL = 1, ANTAR = 2;
+    const AMBIL = 1, ANTAR = 2, EXPRESS = 3;
     const PENDING = 0, SELESAI = 1, DIAMBIL = 2;
 
-    public $NAMA, $SUBTOTAL, $TOTAL;
+    public $NAMA, $SUBTOTAL, $TOTAL, $TGL_ORDER_X;
 
     /**
      * @return string the associated database table name
@@ -70,7 +70,7 @@ class Order extends CActiveRecord {
             'KODE_PELANGGAN' => 'Kode Pelanggan',
             'ESTIMASI_SELESAI' => 'Estimasi Selesai',
             'PENGAMBILAN' => 'Pengambilan',
-            'BIAYA_ANTAR' => 'Biaya Antar',
+            'BIAYA_ANTAR' => 'Biaya Tambahan',
             'DISKON' => 'Diskon',
             'TGL_ORDER' => 'Tanggal Order',
             'TGL_SELESAI' => 'Tanggal Selesai',
@@ -101,6 +101,7 @@ class Order extends CActiveRecord {
         $criteria->order = 'KODE_ORDER desc';
         $criteria->with = array('pelanggan');
         $criteria->together = true;
+        $criteria->addBetweenCondition('TGL_ORDER', date('Y-m-01',strtotime('this month')), date('Y-m-t',strtotime('this month')));
 
         $criteria->compare('KODE_ORDER', $this->KODE_ORDER, true);
         $criteria->compare('KODE_PELANGGAN', $this->KODE_PELANGGAN);
@@ -198,9 +199,11 @@ class Order extends CActiveRecord {
     public function getPengambilan() {
         switch ($this->PENGAMBILAN) {
             case self::AMBIL:
-                return '<span class="label label-warning">Diambil sendiri</span>';
+                return '<span class="label label-info">Diambil sendiri</span>';
             case self::ANTAR:
-                return '<span class="label label-danger">Diantar</span>';
+                return '<span class="label label-warning">Diantar</span>';
+            case self::EXPRESS:
+                return '<span class="label label-danger">Express</span>';
             default:
                 return '';
         }
@@ -218,6 +221,7 @@ class Order extends CActiveRecord {
         return array(
             self::AMBIL => 'Diambil sendiri',
             self::ANTAR => 'Diantar',
+            self::EXPRESS => 'Express'
         );
     }
 

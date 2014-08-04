@@ -55,13 +55,6 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <?php echo $form->labelEx($model, 'EMAIL', array('class' => 'control-label')); ?>
-                                <?php echo $form->textField($model, 'EMAIL', array('class' => 'form-control')); ?>
-                                <?php echo $form->error($model,'EMAIL'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <?php echo $form->labelEx($model, 'KELAMIN', array('class' => 'control-label')); ?>
                                 <div class="compactRadioGroup">
                                     <?php echo $form->radioButtonList($model, 'KELAMIN', array('L' => 'Laki-laki', 'P' => 'Perempuan'), array('class' => 'form-control', 'prompt' => '-- Pilih Tipe --')); ?>
@@ -69,8 +62,6 @@
                                 <?php echo $form->error($model,'KELAMIN'); ?>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'ALAMAT_PELANGGAN', array('class' => 'control-label')); ?>

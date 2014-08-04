@@ -35,6 +35,14 @@ return false;
 
                     <div class="form-body">
                         <div class="row">
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-icon">
+                                        <i class="fa fa-navicon"></i>
+                                        <?php echo $search->textField($pelanggan, 'KODE_PELANGGAN', array('class' => 'form-control', 'placeholder' => 'Kode Pelanggan')); ?>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="input-icon">
@@ -46,29 +54,8 @@ return false;
                             <div class="col-md-2">
                                 <div class="form-group">
                                     <div class="input-icon">
-                                        <i class="fa fa-fax"></i>
+                                        <i class="fa fa-phone"></i>
                                         <?php echo $search->textField($pelanggan, 'KONTAK', array('class' => 'form-control', 'placeholder' => 'Kontak')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <div class="input-icon">
-                                        <i class="fa fa-envelope"></i>
-                                        <?php echo $search->textField($pelanggan, 'EMAIL', array('class' => 'form-control', 'placeholder' => 'Email')); ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <?php echo $search->dropDownList($pelanggan, 'KELAMIN', array('L' => 'Laki-laki', 'P' => 'Perempuan'), array('class' => 'form-control', 'prompt' => '-- Jenis Kelamin --')); ?>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <div class="input-icon">
-                                        <i class="fa fa-home"></i>
-                                        <?php echo $search->textField($pelanggan, 'ALAMAT_PELANGGAN', array('class' => 'form-control', 'placeholder' => 'Alamat')); ?>
                                     </div>
                                 </div>
                             </div>
@@ -99,9 +86,13 @@ return false;
                     'summaryText' => 'Menampilkan {start} - {end} dari {count} data Pelanggan',
                     'emptyText' => '<div class="alert alert-error">Tidak ada data Pelanggan ditampilkan</div>',
                     'showTableOnEmpty' => false,
-                    'itemsCssClass' => 'table table-bordered table-striped table-condensed flip-content',
+                    'itemsCssClass' => 'table table-bordered table-striped table-condensed flip-content table-hover',
                     'columns' => array(
-                        'KODE_PELANGGAN',
+                        array(
+                            'name' => 'KODE_PELANGGAN',
+                            'type' => 'raw',
+                            'value' => 'CHtml::link($data->KODE_PELANGGAN, "#", array("class" => "btn btn-xs btn-success", "onclick" => "pilihkode($data->KODE_PELANGGAN)"))'
+                        ),
                         'NAMA_PELANGGAN',
                         'ALAMAT_PELANGGAN',
                         array(
@@ -184,11 +175,12 @@ return false;
                                     <?php echo $form->radioButtonList($orderbaru, 'PENGAMBILAN', Order::listPengambilan(), array(
                                         'class' => 'form-control col-md-2',
                                         'onchange' => '
-                                            if(this.value == 2)
-                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
-                                            else {
+                                            if(this.value == 1) {
                                                 $("#Order_BIAYA_ANTAR").attr("value", "0");
                                                 $("#Order_BIAYA_ANTAR").attr("disabled", "dsiabled");
+                                            }
+                                            else {
+                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
                                             }
                                         '
                                     )); ?>
@@ -266,4 +258,9 @@ return false;
 
 <script>
     $('#pelanggan-grid').hide();
+    
+    function pilihkode(objek) {
+        $('#pelanggan-grid').hide();
+        $('#Order_KODE_PELANGGAN').attr('value', objek);
+    }
 </script>

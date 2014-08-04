@@ -9,11 +9,8 @@ $this->breadcrumbs = array(
 ?>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <?php echo Yii::app()->user->getFlash('info') ?>
-    </div>
-    <div class="col-md-2">
-        <?php echo CHtml::link('Cetak Nota', array('/order/cetak', 'id' => $model->KODE_ORDER), array('class' => 'btn btn-success pull-right print')) ?>
     </div>
 </div><br/>
 
@@ -74,6 +71,54 @@ $this->breadcrumbs = array(
             </div>
         </div>
         <!-- END SAMPLE TABLE PORTLET-->
+        
+        <div class="portlet box blue">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-table"></i> Nota
+                </div>
+                <div class="tools"></div>
+            </div>
+            <div class="portlet-body form">
+                <!-- BEGIN FORM-->
+                <form id="calculator" method="get">
+                <div class="form-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="control-label">Total</label>
+                            <p class="lead"><?php echo MyFormatter::formatUang($model->getTotal()) ?></p>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="bayar" class="control-label">Pembayaran</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="number" id="bayar" class="form-control" value="0" name="bayar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="kembali" class="control-label">Kembalian</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">Rp.</span>
+                                    <input type="number" id="kembali" class="form-control" value="0" readonly="readonly" name="kembali">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions center">
+                    <?php echo CHtml::link('Hitung & Cetak Nota', array('/order/cetak', 'id' => $model->KODE_ORDER), array(
+                        'class' => 'btn btn-success pull-right print',
+                        'id' => 'cetaknota'
+                    )) ?>
+                </div>
+
+                </form>
+                <!-- END FORM-->
+            </div>
+        </div>
     </div>
     <div class="col-md-6">
         <!-- BEGIN SAMPLE TABLE PORTLET-->
@@ -118,7 +163,7 @@ $this->breadcrumbs = array(
                     <table class="table table-condensed table-bordered">
                         <tr><th>Subtotal</th><td><?php echo MyFormatter::formatUang($model->SUBTOTAL) ?></td></tr>
                         <tr><th>Diskon</th><td><?php echo $model->DISKON.'%' ?></td></tr>
-                        <tr><th>Biaya Antar</th><td><?php echo MyFormatter::formatUang($model->BIAYA_ANTAR) ?></td></tr>
+                        <tr><th>Biaya Tambahan</th><td><?php echo MyFormatter::formatUang($model->BIAYA_ANTAR) ?></td></tr>
                         <tr><th>Total</th><td><?php echo MyFormatter::formatUang($model->TOTAL) ?></td></tr>
                     </table>
                 </div>
@@ -131,4 +176,14 @@ $this->breadcrumbs = array(
 <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/custom/jquery.printPage.js" type="text/javascript"></script>
 <script>
     $(".print").printPage();
+    
+    $('#cetaknota').click(function() {
+        var bayar = $('#bayar').val();
+        bayar = bayar.replace('.', '');
+        
+        var kembali = bayar - <?php echo $model->getTotal() ?>;
+        $('#kembali').attr('value', kembali);
+        
+        $(this).attr('href', $(this).attr('href') + '?bayar=' + bayar + '&kembali=' + kembali);
+    });
 </script>

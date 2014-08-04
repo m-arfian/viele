@@ -40,7 +40,7 @@
                                 <?php echo $form->textField($model, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
                                 <?php echo $form->error($model, 'KODE_PELANGGAN'); ?>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" id="estimasi">
                                 <?php echo $form->labelEx($model, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
                                 <div class="input-group input-small">
                                     <?php echo $form->numberField($model, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
@@ -54,12 +54,14 @@
                                     <?php echo $form->radioButtonList($model, 'PENGAMBILAN', Order::listPengambilan(), array(
                                         'class' => 'form-control col-md-2',
                                         'onchange' => '
-                                            if(this.value == 2)
-                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
-                                            else {
+                                            if(this.value == 1) {
                                                 $("#Order_BIAYA_ANTAR").attr("value", "0");
                                                 $("#Order_BIAYA_ANTAR").attr("disabled", "dsiabled");
                                             }
+                                            else
+                                                $("#Order_BIAYA_ANTAR").removeAttr("disabled");
+                                                
+                                            toggleestimasi(this.value);
                                         '
                                     )); ?>
                                 </div>
@@ -145,3 +147,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    toggleestimasi(<?php echo $model->PENGAMBILAN ?>);
+    
+    function toggleestimasi(val) {
+        if(val == 3) {
+            $("#estimasi").hide();
+            $('#Order_ESTIMASI_SELESAI').attr('value', '0');
+        }
+        else
+            $("#estimasi").show();
+    }
+</script>

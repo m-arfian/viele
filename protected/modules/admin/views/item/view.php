@@ -78,6 +78,9 @@ $this->breadcrumbs = array(
                                 'class' => 'MyCButtonColumn',
                                 'template' => '{update} {nonaktif}',
                                 'buttons' => array(
+                                    'update' => array(
+                                        'url' => 'array("harga/update", "id" => $data->KODE_HARGA)'
+                                    ),
                                     'nonaktif' => array(
                                         'url' => 'array("harga/nonaktif", "id" => $data->KODE_HARGA, "ajax" => "false")',
                                         'icon' => '<i class="fa fa-trash-o"></i>',

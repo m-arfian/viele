@@ -24,7 +24,6 @@ class DefaultController extends Controller {
     
     public function actionIndex() {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'STATUS_ORDER = '.Order::DIAMBIL;
         $criteria->addBetweenCondition('TGL_ORDER', date('Y-m-01',strtotime('this month')), date('Y-m-t',strtotime('this month')));
         $kredit = Order::model()->findAll($criteria);
         $total = 0;
