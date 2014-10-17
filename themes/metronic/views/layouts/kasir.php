@@ -19,6 +19,7 @@
         <link href="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
         <link href="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+        <link href="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/bootstrap-datepicker/css/datepicker.css">
         <!-- END GLOBAL MANDATORY STYLES -->
         <!-- BEGIN THEME STYLES -->
         <link href="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
@@ -1281,6 +1282,7 @@
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
         <!-- END CORE PLUGINS -->
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/global/scripts/metronic.js" type="text/javascript"></script>
         <script src="<?php echo Yii::app()->theme->baseUrl ?>/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>

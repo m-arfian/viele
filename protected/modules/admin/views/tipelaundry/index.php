@@ -1,7 +1,7 @@
 <?php
 /* @var $this TipelaundryController */
 /* @var $model TipeLaundry */
-
+$this->pageTitle = 'Manajemen Tipe Laundry';
 $this->breadcrumbs = array(
     'Manajemen Tipe Laundry',
 );

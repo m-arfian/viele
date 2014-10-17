@@ -38,14 +38,14 @@ $this->breadcrumbs = array(
                         <div class="col-md-6">
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'BULAN', array('class' => 'control-label')); ?>
-                                <?php echo $form->dropDownList($model, 'BULAN', FormRekap::listBulan(), array('class' => 'form-control', 'prompt' => '-- Pilih Bulan --')); ?>
+                                <?php echo $form->dropDownList($model, 'BULAN', $model->listBulan(), array('class' => 'form-control', 'prompt' => '-- Pilih Bulan --')); ?>
                                 <?php echo $form->error($model,'BULAN'); ?>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'TAHUN', array('class' => 'control-label')); ?>
-                                <?php echo $form->dropDownList($model, 'TAHUN', FormRekap::listTahun(), array('class' => 'form-control', 'prompt' => '-- Pilih Tahun --')); ?>
+                                <?php echo $form->dropDownList($model, 'TAHUN', $model->listTahun(), array('class' => 'form-control', 'prompt' => '-- Pilih Tahun --')); ?>
                                 <?php echo $form->error($model,'TAHUN'); ?>
                             </div>
                         </div>

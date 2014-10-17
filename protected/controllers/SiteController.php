@@ -3,13 +3,13 @@
 class SiteController extends Controller {
 
     public $layout = '//layouts/kasir';
-    
+
     public function filters() {
         return array(
             'accessControl',
         );
     }
-    
+
     public function accessRules() {
         return array(
             array('allow',
@@ -26,7 +26,7 @@ class SiteController extends Controller {
             ),
         );
     }
-    
+
     /**
      * Declares class-based actions.
      */
@@ -56,54 +56,60 @@ class SiteController extends Controller {
             $pelanggan->attributes = $_GET['Pelanggan'];
 
         $newpl = new Pelanggan('baru');
-
         if (isset($_POST['Pelanggan'])) {
             $newpl->attributes = $_POST['Pelanggan'];
             if ($newpl->save())
-                $this->redirect(array('/site?plgid=$model->KODE_PELANGGAN'));
+                $this->redirect(array("/site?plgid=$newpl->KODE_PELANGGAN"));
         }
-        
+
         $order = new Order('search');
         $order->unsetAttributes();  // clear any default values
         if (isset($_GET['Order']))
             $order->attributes = $_GET['Order'];
-        
+
         $orderbaru = new Order('baru');
         $orderbaru->orderdetail = new OrderDetail('baru');
-        
-        if(isset($_GET['plgid']))
+
+        if (isset($_GET['plgid']))
             $orderbaru->KODE_PELANGGAN = $_GET['plgid'];
-        
+
         if (isset($_POST['Order'])) {
             $orderbaru->attributes = $_POST['Order'];
             if ($orderbaru->validate()) {
                 $transaction = Yii::app()->db->beginTransaction();
-                try{
+                try {
                     if (!$orderbaru->save())
                         throw new Exception;
-                    
+
+                    $subtotal = 0;
                     foreach ($_POST['OrderDetail'] as $kd => $detail) {
-                        if(!empty($detail['JUMLAH'])) {
+                        if (!empty($detail['JUMLAH'])) {
                             $od = new OrderDetail('baru');
                             $od->KODE_HARGA = $kd;
                             $od->JUMLAH = $detail['JUMLAH'];
                             $od->KODE_ORDER = $orderbaru->KODE_ORDER;
                             $od->REAL_HARGA = Harga::getHargaById($kd);
-                            if(!$od->save())
+                            $subtotal += $od->JUMLAH * $od->REAL_HARGA;
+                            if (!$od->save())
                                 throw new Exception;
                         }
                     }
                     
+                    if($orderbaru->PENGAMBILAN == Order::EXPRESS) {
+                        $antarexpress = $orderbaru->getTotal ($subtotal) * Order::NILAI_BA_EXPRESS / 100;
+                        if (!$orderbaru->saveAttributes(array('BIAYA_ANTAR' => $antarexpress)))
+                            throw new Exception();
+                    }
+                    
                     $transaction->commit();
                     $this->redirect(array('/order/view', 'id' => $orderbaru->KODE_ORDER));
-                        
                 } catch (Exception $ex) {
                     $transaction->rollback();
+                    echo $ex->getMessage(); exit();
                 }
-            
             }
         }
-        
+
         // renders the view file 'protected/views/site/index.php'
         // using the default layout 'protected/views/layouts/main.php'
         $this->render('index', array(
@@ -145,10 +151,10 @@ class SiteController extends Controller {
             $model->attributes = $_POST['LoginForm'];
             // validate user input and redirect to the previous page if valid
             if ($model->validate() && $model->login())
-                if(WebUser::isAdmin())
+                if (WebUser::isAdmin())
                     $this->redirect(array('/admin'));
                 else
-                    $this->redirect (array('/site'));
+                    $this->redirect(array('/site'));
         }
         // display the login form
         $this->render('login', array('model' => $model));
@@ -158,7 +164,20 @@ class SiteController extends Controller {
      * Logs out the current user and redirect to homepage.
      */
     public function actionLogout() {
+        if (Yii::app()->user->role == WebUser::ROLE_KASIR) {
+            $criteria = new CDbCriteria(array(
+                'condition' => 'USERNAME like :user and TGL_PULANG is null',
+                'params' => array(':user' => Yii::app()->user->nama),
+                'order' => 'KODE_MONITOR desc',
+            ));
+            $monitor = Monitor::model()->find($criteria);
+            if($monitor !== null) {
+                $monitor->saveAttributes(array('TGL_PULANG' => date('Y-m-d'), 'LOGOUT' => date('H:i:s')));
+            }
+        }
+        
         Yii::app()->user->logout();
+
         $this->redirect(Yii::app()->homeUrl);
     }
 

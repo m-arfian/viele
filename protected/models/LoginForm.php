@@ -61,6 +61,21 @@ class LoginForm extends CFormModel {
         if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
             $duration = $this->rememberMe ? 3600 * 24 * 30 : 3600; // 30 days
             Yii::app()->user->login($this->_identity, $duration);
+            
+            if(Yii::app()->user->role == WebUser::ROLE_KASIR) {
+//                $cekmonitor = Monitor::model()->find(new CDbCriteria(array(
+//                    'condition' => 'USERNAME like :user and TGL_PULANG is null',
+//                    'params' => array(':user' => $this->username),
+//                    'order' => 'KODE_MONITOR desc',
+//                )));
+                
+//                if($cekmonitor === null) {
+                    $monitor = new Monitor('login');
+                    $monitor->USERNAME = $this->username;
+                    $monitor->save();
+//                }
+            }
+            
             return true;
         } else
             return false;

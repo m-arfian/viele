@@ -59,7 +59,7 @@ $this->breadcrumbs = array(
                 </div>
                 <div class="details">
                     <div class="number">
-                        <?php echo MyFormatter::formatAngka($hariini) ?>
+                        <?php echo CHtml::link(MyFormatter::formatAngka($hariini), array('hariini/'), array('style' => 'color:white')) ?>
                     </div>
                     <div class="desc">
                         Pemesanan Hari ini

@@ -40,14 +40,6 @@
                                 <?php echo $form->textField($model, 'KODE_PELANGGAN', array('class' => 'form-control input-small')); ?>
                                 <?php echo $form->error($model, 'KODE_PELANGGAN'); ?>
                             </div>
-                            <div class="form-group" id="estimasi">
-                                <?php echo $form->labelEx($model, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
-                                <div class="input-group input-small">
-                                    <?php echo $form->numberField($model, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
-                                    <span class="input-group-addon">Hari</span>
-                                </div>
-                                <?php echo $form->error($model, 'ESTIMASI_SELESAI'); ?>
-                            </div>
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'PENGAMBILAN', array('class' => 'control-label')); ?>
                                 <div class="compactRadioGroup">
@@ -67,9 +59,18 @@
                                 </div>
                                 <?php echo $form->error($model, 'PENGAMBILAN'); ?>
                             </div>
+                            <div class="form-group" id="estimasi">
+                                <?php echo $form->labelEx($model, 'ESTIMASI_SELESAI', array('class' => 'control-label')); ?>
+                                <div class="input-group input-small">
+                                    <?php echo $form->numberField($model, 'ESTIMASI_SELESAI', array('class' => 'form-control', 'min' => 0)); ?>
+                                    <span class="input-group-addon">Hari</span>
+                                </div>
+                                <?php echo $form->error($model, 'ESTIMASI_SELESAI'); ?>
+                            </div>
                             <div class="form-group">
                                 <?php echo $form->labelEx($model, 'BIAYA_ANTAR', array('class' => 'control-label')); ?>
-                                <div class="input-group input-small">
+                                <div style="display:none" id="ba_chosen"><p></p></div>
+                                    <div class="input-group input-small" id="ba_manual">
                                     <span class="input-group-addon">Rp</span>
                                     <?php echo $form->textField($model, 'BIAYA_ANTAR', array('class' => 'form-control', 'disabled' => $model->PENGAMBILAN == Order::AMBIL)); ?>
                                 </div>
@@ -90,46 +91,62 @@
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <table class="table table-condensed table-bordered table-striped">
-                                <tr><th></th><?php foreach (TipeLaundry::listAll() as $laundry) { echo '<th>'.strtoupper($laundry).'</th>'; } ?></tr>
-                                <?php foreach (Tipe::listAll() as $i => $tipe): ?>
-                                <tr><th colspan="<?php echo count(TipeLaundry::listAll())+1 ?>"><div class="text-center"><?php echo strtoupper($tipe) ?></div></th></tr>
-                                <?php foreach (Item::ListGrupOrder($i) as $dex => $item): ?>
-                                <tr>
-                                    <td><?php echo $item ?></td>
-                                    <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
-                                    <td> <?php
-                                    if(TipeLaundry::cekByItem($id, $dex)) {
-                                        $harga = Harga::findAktif($dex, $id);
-                                        if($model->isNewRecord)
-                                            echo $form->numberField($model->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
-                                                'class' => 'form-control input-small',
-                                                'min' => 0,
-                                                'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
-                                            ));
-                                        else {
-                                            $value = 0;
-                                            foreach ($history as $detail) {
-                                                if($detail->harga->KODE_TIPE_LAUNDRY == $id && $detail->harga->KODE_ITEM == $dex) {
-                                                    $value = $detail->JUMLAH;
-                                                    break;
-                                                }
-                                            }
-                                            
-                                            echo $form->numberField($model->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
-                                                'class' => 'form-control input-small',
-                                                'min' => 0,
-                                                'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA),
-                                                'value' => $value
-                                            ));
-                                        }
-                                    }
-                                    ?> </td>
-                                    <?php endforeach ?>
-                                </tr>
-                                <?php endforeach ?>
-                                <?php endforeach ?>
-                            </table>
+                            <div class="portlet box blue-steel">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="fa fa-thumb-tack"></i>Daftar Laundry
+                                    </div>
+                                    <div class="tools"></div>
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="tabbable-line">
+                                        <ul class="nav nav-tabs">
+                                            <?php foreach (Tipe::listAll() as $i => $tipe): ?>
+                                                <li class="<?php echo $i == 1 ? 'active' : '' ?>">
+                                                    <a href="#overview_<?php echo $i ?>" data-toggle="tab">
+                                                        <?php echo strtoupper($tipe) ?> </a>
+                                                </li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <?php foreach (Tipe::listAll() as $i => $tipe): ?>
+                                                <div class="tab-pane <?php echo $i == 1 ? 'active' : '' ?>" id="overview_<?php echo $i ?>">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-condensed table-bordered table-striped">
+                                                            <thead>
+                                                                <tr><th></th>
+                                                                <?php foreach (TipeLaundry::listAll() as $laundry): ?>
+                                                                    <th><?php echo strtoupper($laundry) ?></th>
+                                                                <?php endforeach; ?>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php foreach (Item::ListTipeOrder($i) as $dex => $item): ?>
+                                                                    <tr>
+                                                                        <td><?php echo $item ?></td>
+                                                                        <?php foreach (TipeLaundry::listAll() as $id => $laundry): ?>
+                                                                            <td> <?php
+                                                                                if (TipeLaundry::cekByItem($id, $dex)) {
+                                                                                    $harga = Harga::findAktif($dex, $id);
+                                                                                    echo $form->numberField($model->orderdetail, "[$harga->KODE_HARGA]JUMLAH", array(
+                                                                                        'class' => 'form-control input-small',
+                                                                                        'min' => 0,
+                                                                                        'placeholder' => MyFormatter::formatUang($harga->NOMINAL_HARGA)
+                                                                                    ));
+                                                                                }
+                                                                                ?> </td>
+                                                                        <?php endforeach ?>
+                                                                    </tr>
+                                                                <?php endforeach ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!--/row-->
@@ -148,6 +165,14 @@
     </div>
 </div>
 
+<?php if($model->isNewRecord): ?>
+<script>
+    $('#order-form').submit(function() {
+        return confirm('Perhatian! Order yang dimasukkan akan tercatat pada data monitor oleh user kasir yang login saat ini. Klik OK untuk melanjutkan')
+    });
+</script>
+<?php endif ?>
+
 <script>
     toggleestimasi(<?php echo $model->PENGAMBILAN ?>);
     
@@ -155,8 +180,13 @@
         if(val == 3) {
             $("#estimasi").hide();
             $('#Order_ESTIMASI_SELESAI').attr('value', '0');
+            $('#ba_manual').hide();
+            $('#ba_chosen').html('<p class="text-danger">+<?php echo Order::NILAI_BA_EXPRESS ?>% total laundry</p>').show();
         }
-        else
+        else {
+            $('#ba_manual').show();
+            $('#ba_chosen').hide();
             $("#estimasi").show();
+        }
     }
 </script>

@@ -64,6 +64,7 @@ class OrderController extends Controller {
                     if (!$model->save())
                         throw new Exception;
                     
+                    $subtotal = 0;
                     foreach ($_POST['OrderDetail'] as $kd => $detail) {
                         if(!empty($detail['JUMLAH'])) {
                             $od = new OrderDetail('baru');
@@ -71,9 +72,16 @@ class OrderController extends Controller {
                             $od->JUMLAH = $detail['JUMLAH'];
                             $od->KODE_ORDER = $model->KODE_ORDER;
                             $od->REAL_HARGA = Harga::getHargaById($kd);
+                            $subtotal += $od->JUMLAH * $od->REAL_HARGA;
                             if(!$od->save())
                                 throw new Exception;
                         }
+                    }
+                    
+                    if($model->PENGAMBILAN == Order::EXPRESS) {
+                        $antarexpress = $model->getTotal ($subtotal) * Order::NILAI_BA_EXPRESS / 100;
+                        if (!$model->saveAttributes(array('BIAYA_ANTAR' => $antarexpress)))
+                            throw new Exception();
                     }
                     
                     $transaction->commit();
@@ -116,6 +124,7 @@ class OrderController extends Controller {
                     if (!OrderDetail::model()->deleteAll("KODE_ORDER = $id"))
                         throw new Exception;
                     
+                    $subtotal = 0;
                     foreach ($_POST['OrderDetail'] as $kd => $detail) {
                         if(!empty($detail['JUMLAH'])) {
                             $od = new OrderDetail('baru');
@@ -123,9 +132,16 @@ class OrderController extends Controller {
                             $od->JUMLAH = $detail['JUMLAH'];
                             $od->KODE_ORDER = $model->KODE_ORDER;
                             $od->REAL_HARGA = Harga::getHargaById($kd);
+                            $subtotal += $od->JUMLAH * $od->REAL_HARGA;
                             if(!$od->save())
                                 throw new Exception;
                         }
+                    }
+                    
+                    if($model->PENGAMBILAN == Order::EXPRESS) {
+                        $antarexpress = $model->getTotal ($subtotal) * Order::NILAI_BA_EXPRESS / 100;
+                        if (!$model->saveAttributes(array('BIAYA_ANTAR' => $antarexpress)))
+                            throw new Exception();
                     }
                     
                     $transaction->commit();

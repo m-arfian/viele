@@ -1,9 +1,9 @@
 <?php
-/* @var $this ItemController */
-/* @var $model Item */
-$this->pageTitle = 'Manajemen Item';
+/* @var $this PegawaiController */
+/* @var $model User */
+$this->pageTitle = 'Manajemen Pegawai';
 $this->breadcrumbs = array(
-    'Manajemen Item',
+    'Manajemen Pegawai',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -12,7 +12,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#item-grid').yiiGridView('update', {
+	$('#user-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
         <div class="portlet box blue search-form" style="display:none">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-search"></i>Pencarian Item
+                    <i class="fa fa-search"></i>Pencarian Pegawai
                 </div>
                 <div class="tools"></div>
             </div>
@@ -40,17 +40,17 @@ $('.search-form form').submit(function(){
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-inbox"></i>Data Item
+                    <i class="fa fa-user"></i>Data Pegawai
                 </div>
                 <div class="tools">
                     <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('create')); ?>
-                    <?php echo CHtml::link('<i class="fa fa-search"></i>', '#', array('class' => 'search-button', 'style' => 'color:white')); ?>
+                    <?php echo CHtml::link('<i class="fa fa-search"></i>', '#', array('class' => 'search-button')); ?>
                 </div>
             </div>
             <div class="portlet-body flip-scroll">
                 <?php
                 $this->widget('zii.widgets.grid.CGridView', array(
-                    'id' => 'item-grid',
+                    'id' => 'user-grid',
                     'dataProvider' => $model->search(),
                     //styling pagination
                     'pager' => array(
@@ -62,19 +62,28 @@ $('.search-form form').submit(function(){
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
                     //end styling pagination
-                    'summaryText' => 'Menampilkan {start} - {end} dari {count} data Item',
-                    'emptyText' => '<div class="alert alert-error">Tidak ada data Item ditampilkan</div>',
+                    'summaryText' => 'Menampilkan {start} - {end} dari {count} data Pegawai',
+                    'emptyText' => '<div class="alert alert-error">Tidak ada data Pegawai ditampilkan</div>',
                     'showTableOnEmpty' => false,
                     'itemsCssClass' => 'table table-bordered table-striped table-condensed flip-content',
                     'columns' => array(
-                        'KODE_ITEM',
-                        'NAMA_ITEM',
-                        'tipe.NAMA_TIPE',
+                        'USERNAME',
+                        array(
+                            'name' => 'ROLE',
+                            'type' => 'role',
+                            'value' => '$data->ROLE'
+                        ),
                         array(
                             'class' => 'MyCButtonColumn',
                             'buttons' => array(
                                 'delete' => array(
-                                    'url' => 'array("nonaktif", "id" => $data->KODE_ITEM, "ajax" => "false")',
+                                    'url' => 'array("nonaktif", "val" => $data->USERNAME)',
+                                ),
+                                'view' => array(
+                                    'url' => 'array("view", "val" => $data->USERNAME)',
+                                ),
+                                'update' => array(
+                                    'url' => 'array("update", "val" => $data->USERNAME)',
                                 )
                             )
                         ),

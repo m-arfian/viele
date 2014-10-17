@@ -2,27 +2,49 @@
 /* @var $this TipeController */
 /* @var $model Tipe */
 
-$this->breadcrumbs=array(
-	'Tipes'=>array('index'),
-	$model->KODE_TIPE,
-);
-
-$this->menu=array(
-	array('label'=>'List Tipe', 'url'=>array('index')),
-	array('label'=>'Create Tipe', 'url'=>array('create')),
-	array('label'=>'Update Tipe', 'url'=>array('update', 'id'=>$model->KODE_TIPE)),
-	array('label'=>'Delete Tipe', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->KODE_TIPE),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Tipe', 'url'=>array('admin')),
+$this->breadcrumbs = array(
+    'Tipe Item' => array('index'),
+    $model->NAMA_TIPE,
 );
 ?>
 
-<h1>View Tipe #<?php echo $model->KODE_TIPE; ?></h1>
+<div class="row">
+    <div class="col-md-6">
+        <?php echo Yii::app()->user->getFlash('info') ?>
+        <!-- BEGIN SAMPLE TABLE PORTLET-->
+        <div class="portlet box red">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-desktop"></i>Detail Tipe Item #<?php echo $model->NAMA_TIPE ?>
+                </div>
+                <div class="tools">
+                    <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('create')) ?>
+                    <?php echo CHtml::link('<i class="fa fa-edit"></i>', array('update', 'id' => $model->KODE_TIPE)) ?>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="table-scrollable">
+                    <?php
+                    $this->widget('zii.widgets.CDetailView', array(
+                        'data' => $model,
+                        'htmlOptions' => array(
+                            'class' => 'table table-bordered table-striped',
+                        ),
+                        'attributes' => array(
+                            'KODE_TIPE',
+                            'NAMA_TIPE',
+                            array(
+                                'name' => 'STATUS_TIPE',
+                                'type' => 'statusaktif',
+                                'value' => $model->STATUS_TIPE
+                            ),
+                        ),
+                    ));
+                    ?>
+                </div>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'KODE_TIPE',
-		'NAMA_TIPE',
-		'STATUS_TIPE',
-	),
-)); ?>
+            </div>
+        </div>
+        <!-- END SAMPLE TABLE PORTLET-->
+    </div>
+</div>

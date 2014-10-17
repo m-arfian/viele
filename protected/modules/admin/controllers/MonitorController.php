@@ -1,11 +1,11 @@
 <?php
 
-class TipeController extends Controller {
+class MonitorController extends Controller {
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    // public $layout = '//layouts/column2';
+//    public $layout = '//layouts/column2';
 
     /**
      * @return array action filters
@@ -25,9 +25,8 @@ class TipeController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('create', 'update', 'index', 'view', 'nonaktif'),
+                'actions' => array('index', 'view', 'rekap'),
                 'users' => array('@'),
-                'roles' => array(WebUser::ROLE_ADMIN)
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -50,15 +49,15 @@ class TipeController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Tipe;
+        $model = new Monitor;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Tipe'])) {
-            $model->attributes = $_POST['Tipe'];
+        if (isset($_POST['Monitor'])) {
+            $model->attributes = $_POST['Monitor'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->KODE_TIPE));
+                $this->redirect(array('view', 'id' => $model->KODE_MONITOR));
         }
 
         $this->render('create', array(
@@ -77,10 +76,10 @@ class TipeController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Tipe'])) {
-            $model->attributes = $_POST['Tipe'];
+        if (isset($_POST['Monitor'])) {
+            $model->attributes = $_POST['Monitor'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->KODE_TIPE));
+                $this->redirect(array('view', 'id' => $model->KODE_MONITOR));
         }
 
         $this->render('update', array(
@@ -100,39 +99,57 @@ class TipeController extends Controller {
         if (!isset($_GET['ajax']))
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
-    
-    public function actionNonaktif($id, $ajax = true) {
-        $model = $this->loadModel($id);
-        $model->STATUS_TIPE = Tipe::AKTIF;
-        $model->update();
-        
-        if($ajax == false || $_GET['ajax'] == false)
-            $this->redirect(array('view', 'id' => $model->KODE_TIPE));
-    }
 
     /**
      * Manages all models.
      */
     public function actionIndex() {
-        $model = new Tipe('search');
+        $model = new Monitor('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Tipe']))
-            $model->attributes = $_GET['Tipe'];
+        if (isset($_GET['Monitor']))
+            $model->attributes = $_GET['Monitor'];
 
         $this->render('index', array(
             'model' => $model,
         ));
     }
 
+    public function actionRekap($id) {
+        $monitor = Monitor::model()->findByPk($id);
+        
+        $datestart = date('Y-m-d H:i:s', strtotime($monitor->TGL_KERJA . ' ' . $monitor->LOGIN));
+        $dateend = date('Y-m-d H:i:s', strtotime($monitor->TGL_PULANG . ' ' . $monitor->LOGOUT));
+
+        $criteria = new CDbCriteria;
+        $criteria->addBetweenCondition('TGL_ORDER', $datestart, $dateend);
+
+        $order = Order::model()->findAll($criteria);
+
+//        if ($order != null) {
+            $filename = 'REKAP_' . $monitor->USERNAME . '_' . MyFormatter::formatTanggalWaktu2($monitor->TGL_KERJA . ' ' . $monitor->LOGIN) . ' - ' .
+                MyFormatter::formatTanggalWaktu2($monitor->TGL_PULANG . ' ' . $monitor->LOGOUT);
+            header("Cache-Control: no-cache, no-store, must-revalidate");
+            header("Content-Type: application/vnd.ms-excel");
+            header("Content-Disposition: attachment; filename=" . $filename . ".xls");
+            
+            $this->renderPartial('_rekap_monitor', array(
+                'order' => $order,
+                'monitor' => $monitor
+            ));
+
+            exit();
+//        }
+    }
+
     /**
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Tipe the loaded model
+     * @return Monitor the loaded model
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = Tipe::model()->findByPk($id);
+        $model = Monitor::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -140,10 +157,10 @@ class TipeController extends Controller {
 
     /**
      * Performs the AJAX validation.
-     * @param Tipe $model the model to be validated
+     * @param Monitor $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'tipe-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'monitor-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

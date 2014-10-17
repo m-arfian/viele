@@ -1,10 +1,10 @@
 <?php
-/* @var $this TipelaundryController */
-/* @var $model TipeLaundry */
-
+/* @var $this PegawaiController */
+/* @var $model User */
+$this->pageTitle = "Detail Pegawai #$model->USERNAME";
 $this->breadcrumbs = array(
-    'Tipe Laundry' => array('index'),
-    $model->NAMA_TIPE_LAUNDRY,
+    'Users' => array('index'),
+    $model->USERNAME,
 );
 ?>
 
@@ -15,11 +15,11 @@ $this->breadcrumbs = array(
         <div class="portlet box red">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-desktop"></i>Detail Tipe Laundry #<?php echo $model->NAMA_TIPE_LAUNDRY ?>
+                    <i class="fa fa-desktop"></i>Detail Pegawai #<?php echo $model->USERNAME ?>
                 </div>
                 <div class="tools">
                     <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('create')) ?>
-                    <?php echo CHtml::link('<i class="fa fa-edit"></i>', array('update', 'id' => $model->KODE_TIPE_LAUNDRY)) ?>
+                    <?php echo CHtml::link('<i class="fa fa-edit"></i>', array('update', 'id' => $model->USERNAME)) ?>
                 </div>
             </div>
             <div class="portlet-body">
@@ -31,12 +31,11 @@ $this->breadcrumbs = array(
                             'class' => 'table table-bordered table-striped',
                         ),
                         'attributes' => array(
-                            'KODE_TIPE_LAUNDRY',
-                            'NAMA_TIPE_LAUNDRY',
+                            'USERNAME',
                             array(
-                                'name' => 'STATUS_TIPE_LAUNDRY',
-                                'type' => 'statusaktif',
-                                'value' => $model->STATUS_TIPE_LAUNDRY
+                                'name' => 'ROLE',
+                                'type' => 'role',
+                                'value' => $model->ROLE
                             ),
                         ),
                     ));

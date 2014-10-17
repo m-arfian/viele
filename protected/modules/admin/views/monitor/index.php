@@ -1,9 +1,9 @@
 <?php
-/* @var $this ItemController */
-/* @var $model Item */
-$this->pageTitle = 'Manajemen Item';
+/* @var $this MonitorController */
+/* @var $model Monitor */
+$this->pageTitle = 'Monitoring';
 $this->breadcrumbs = array(
-    'Manajemen Item',
+    'Monitoring',
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -12,7 +12,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#item-grid').yiiGridView('update', {
+	$('#monitor-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -25,7 +25,7 @@ $('.search-form form').submit(function(){
         <div class="portlet box blue search-form" style="display:none">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-search"></i>Pencarian Item
+                    <i class="fa fa-search"></i>Pencarian Data
                 </div>
                 <div class="tools"></div>
             </div>
@@ -40,17 +40,14 @@ $('.search-form form').submit(function(){
         <div class="portlet box green">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-inbox"></i>Data Item
+                    <i class="fa fa-inbox"></i>Monitoring
                 </div>
-                <div class="tools">
-                    <?php echo CHtml::link('<i class="fa fa-plus"></i>', array('create')); ?>
-                    <?php echo CHtml::link('<i class="fa fa-search"></i>', '#', array('class' => 'search-button', 'style' => 'color:white')); ?>
-                </div>
+                <div class="tools"></div>
             </div>
             <div class="portlet-body flip-scroll">
                 <?php
                 $this->widget('zii.widgets.grid.CGridView', array(
-                    'id' => 'item-grid',
+                    'id' => 'monitor-grid',
                     'dataProvider' => $model->search(),
                     //styling pagination
                     'pager' => array(
@@ -62,19 +59,33 @@ $('.search-form form').submit(function(){
                     'pagerCssClass' => 'pagination',
                     //'summaryCssClass'=>'alert alert-info',
                     //end styling pagination
-                    'summaryText' => 'Menampilkan {start} - {end} dari {count} data Item',
-                    'emptyText' => '<div class="alert alert-error">Tidak ada data Item ditampilkan</div>',
+                    'summaryText' => 'Menampilkan {start} - {end} dari {count} data monitor',
+                    'emptyText' => '<div class="alert alert-error">Tidak ada data monitor ditampilkan</div>',
                     'showTableOnEmpty' => false,
                     'itemsCssClass' => 'table table-bordered table-striped table-condensed flip-content',
                     'columns' => array(
-                        'KODE_ITEM',
-                        'NAMA_ITEM',
-                        'tipe.NAMA_TIPE',
+                        'KODE_MONITOR',
+                        'USERNAME',
+                        array(
+                            'name' => 'TGL_KERJA',
+                            'type' => 'tanggal',
+                            'value' => '$data->TGL_KERJA'
+                        ),
+                        'LOGIN',
+                        array(
+                            'name' => 'TGL_PULANG',
+                            'type' => 'tanggal',
+                            'value' => '$data->TGL_PULANG'
+                        ),
+                        'LOGOUT',
                         array(
                             'class' => 'MyCButtonColumn',
+                            'template' => '{rekap}',
                             'buttons' => array(
-                                'delete' => array(
-                                    'url' => 'array("nonaktif", "id" => $data->KODE_ITEM, "ajax" => "false")',
+                                'rekap' => array(
+                                    'url' => 'array("rekap", "id" => $data->KODE_MONITOR)',
+                                    'icon' => '<i class="fa fa-book"></i>',
+                                    'visible' => '!empty($data->TGL_PULANG)',
                                 )
                             )
                         ),

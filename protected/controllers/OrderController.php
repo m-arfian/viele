@@ -143,7 +143,7 @@ class OrderController extends Controller {
         $model = $this->loadModel($id);
         $laundry = TipeLaundry::listAll();
         
-        $this->render('cetak', array(
+        $this->render('invoice/_cetak', array(
             'model' => $model,
             'laundry' => $laundry
         ));

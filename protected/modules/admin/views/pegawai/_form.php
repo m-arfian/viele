@@ -1,6 +1,6 @@
 <?php
-/* @var $this PelangganController */
-/* @var $model Pelanggan */
+/* @var $this PegawaiController */
+/* @var $model User */
 /* @var $form CActiveForm */
 ?>
 
@@ -9,7 +9,7 @@
         <div class="portlet box yellow">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-user"></i>Form Pelanggan
+                    <i class="fa fa-user"></i>Form Pegawai
                 </div>
                 <div class="tools"></div>
             </div>
@@ -17,7 +17,7 @@
                 <!-- BEGIN FORM-->
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'pelanggan-form',
+                    'id' => 'user-form',
                     // Please note: When you enable ajax validation, make sure the corresponding
                     // controller action is handling ajax validation correctly.
                     // There is a call to performAjaxValidation() commented in generated controller code.
@@ -35,32 +35,43 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <?php echo $form->labelEx($model, 'NAMA_PELANGGAN', array('class' => 'control-label')); ?>
-                                <?php echo $form->textField($model, 'NAMA_PELANGGAN', array('class' => 'form-control')); ?>
-                                <?php echo $form->error($model,'NAMA_PELANGGAN'); ?>
+                                <?php echo $form->labelEx($model, 'USERNAME', array('class' => 'control-label')); ?>
+                                <?php echo $form->textField($model, 'USERNAME', array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model,'USERNAME'); ?>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <?php echo $form->labelEx($model, 'ROLE', array('class' => 'control-label')); ?>
+                                <?php echo $form->dropDownList($model, 'ROLE', array('1' => 'Admin', '2' => 'Kasir'), array('class' => 'form-control', 'prompt' => '-- Pilih Role --')); ?>
+                                <?php echo $form->error($model,'ROLE'); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <?php if(!$model->isNewRecord): ?>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <?php echo $form->labelEx($model, 'PASSLAMA', array('class' => 'control-label')); ?>
+                                <?php echo $form->passwordField($model, 'PASSLAMA', array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model,'PASSLAMA'); ?>
+                            </div>
+                        </div>
+                        <?php endif ?>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <?php echo $form->labelEx($model, 'PASSWORD', array('class' => 'control-label')); ?>
+                                <?php echo $form->passwordField($model, 'PASSWORD', array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model,'PASSWORD'); ?>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <?php echo $form->labelEx($model, 'KONTAK', array('class' => 'control-label')); ?>
-                                <?php echo $form->textField($model, 'KONTAK', array('class' => 'form-control')); ?>
-                                <?php echo $form->error($model,'KONTAK'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <?php echo $form->labelEx($model, 'KELAMIN', array('class' => 'control-label')); ?>
-                                <div class="compactRadioGroup">
-                                    <?php echo $form->radioButtonList($model, 'KELAMIN', array('L' => 'Laki-laki', 'P' => 'Perempuan'), array('class' => 'form-control', 'prompt' => '-- Pilih Tipe --')); ?>
-                                </div>
-                                <?php echo $form->error($model,'KELAMIN'); ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <?php echo $form->labelEx($model, 'ALAMAT_PELANGGAN', array('class' => 'control-label')); ?>
-                                <?php echo $form->textArea($model, 'ALAMAT_PELANGGAN', array('class' => 'form-control')); ?>
-                                <?php echo $form->error($model,'ALAMAT_PELANGGAN'); ?>
+                                <?php echo $form->labelEx($model, 'CONFIRM', array('class' => 'control-label')); ?>
+                                <?php echo $form->passwordField($model, 'CONFIRM', array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model,'CONFIRM'); ?>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,14 @@ $form = $this->beginWidget('CActiveForm', array(
         <div class="col-md-3">
             <div class="form-group">
                 <?php echo $form->label($model, 'TGL_ORDER', array('class' => 'control-label')); ?>
-                <?php echo $form->textField($model, 'TGL_ORDER', array('class' => 'form-control dp', 'data-date-format' => "yyyy-mm-dd")); ?>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $form->textField($model, 'TGL_ORDER', array('class' => 'form-control dp', 'data-date-format' => "yyyy-mm-dd", 'placeholder' => 'Dari tanggal')); ?>
+                    </div>
+                    <div class="col-md-6">
+                        <?php echo $form->textField($model, 'TGL_ORDER_X', array('class' => 'form-control dp', 'data-date-format' => "yyyy-mm-dd", 'placeholder' => 'Sampai tanggal')); ?>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

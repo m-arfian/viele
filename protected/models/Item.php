@@ -133,6 +133,25 @@ class Item extends CActiveRecord {
     }
     
     public static function ListGrupOrder($tipe) {
+        // dari pria, wanita, dst
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'harga' => array(
+                    'joinType' => 'inner join',
+                    'condition' => 'STATUS_HARGA = :sharga',
+                    'params' => array(':sharga' => Harga::AKTIF)
+                )
+            ),
+            'condition' => 'KODE_TIPE = :tipe AND STATUS_ITEM = :status',
+            'params' => array(':tipe' => $tipe, ':status' => self::AKTIF),
+            'together' => true
+        ));
+        
+        return CHtml::listData(self::model()->findAll($criteria), 'KODE_ITEM', 'NAMA_ITEM');
+    }
+    
+    public static function ListTipeOrder($tipe) {
+        // dari laundry, dry cleaning, dst
         $criteria = new CDbCriteria(array(
             'with' => array(
                 'harga' => array(

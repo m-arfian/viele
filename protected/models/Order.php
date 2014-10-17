@@ -20,6 +20,7 @@ class Order extends CActiveRecord {
 
     const AMBIL = 1, ANTAR = 2, EXPRESS = 3;
     const PENDING = 0, SELESAI = 1, DIAMBIL = 2;
+    const NILAI_BA_EXPRESS = 50;
 
     public $NAMA, $SUBTOTAL, $TOTAL, $TGL_ORDER_X;
 
@@ -40,11 +41,11 @@ class Order extends CActiveRecord {
             array('KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, STATUS_ORDER', 'required', 'on' => 'baru, edit', 'message' => '{attribute} wajib diisi'),
             array('KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, STATUS_ORDER', 'numerical', 'integerOnly' => true),
             array('BIAYA_ANTAR', 'numerical', 'message' => '{attribute} harus diisi angka'),
-            array('TGL_ORDER, TGL_DIAMBIL, TGL_SELESAI, KETERANGAN', 'safe'),
+            array('TGL_ORDER, TGL_DIAMBIL, TGL_SELESAI, KETERANGAN, TGL_ORDER_X', 'safe'),
             array('USERNAME', 'length', 'max' => 25),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('KODE_ORDER, KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, TGL_ORDER, TGL_DIAMBIL, TGL_SELESAI, KETERANGAN, STATUS_ORDER, NAMA', 'safe', 'on' => 'search'),
+            array('KODE_ORDER, KODE_PELANGGAN, ESTIMASI_SELESAI, PENGAMBILAN, DISKON, TGL_ORDER, TGL_DIAMBIL, TGL_SELESAI, KETERANGAN, STATUS_ORDER, NAMA, TGL_ORDER_X', 'safe', 'on' => 'search'),
         );
     }
 
@@ -101,7 +102,44 @@ class Order extends CActiveRecord {
         $criteria->order = 'KODE_ORDER desc';
         $criteria->with = array('pelanggan');
         $criteria->together = true;
-        $criteria->addBetweenCondition('TGL_ORDER', date('Y-m-01',strtotime('this month')), date('Y-m-t',strtotime('this month')));
+        if(!isset($this->KODE_ORDER))
+            $criteria->addBetweenCondition('TGL_ORDER', date('Y-m-01',strtotime('this month')), date('Y-m-t',strtotime('this month')));
+        else {
+            if(empty($this->TGL_ORDER_X))
+                $criteria->condition = 'TGL_ORDER like "'.$this->TGL_ORDER.'%"';
+            else
+                $criteria->addBetweenCondition("TGL_ORDER", $this->TGL_ORDER, $this->TGL_ORDER_X, "BLUR");
+//                $criteria->condition = 'TGL_ORDER >= "'.$this->TGL_ORDER.'" and TGL_ORDER <= "'.$this->TGL_ORDER_X."'";
+//                $criteria->condition = 'TGL_ORDER between "'.$this->TGL_ORDER.'" and "'.$this->TGL_ORDER_X.'"';
+            
+        }
+
+        $criteria->compare('KODE_ORDER', $this->KODE_ORDER, true);
+        $criteria->compare('KODE_PELANGGAN', $this->KODE_PELANGGAN);
+        $criteria->compare('ESTIMASI_SELESAI', $this->ESTIMASI_SELESAI);
+        $criteria->compare('PENGAMBILAN', $this->PENGAMBILAN);
+        $criteria->compare('BIAYA_ANTAR', $this->BIAYA_ANTAR);
+        $criteria->compare('DISKON', $this->DISKON);
+        $criteria->compare('TGL_SELESAI', $this->TGL_SELESAI, true);
+        $criteria->compare('TGL_DIAMBIL', $this->TGL_DIAMBIL, true);
+        $criteria->compare('KETERANGAN', $this->KETERANGAN, true);
+        $criteria->compare('USERNAME', $this->USERNAME, true);
+        $criteria->compare('STATUS_ORDER', $this->STATUS_ORDER);
+        $criteria->compare('pelanggan.NAMA_PELANGGAN', $this->NAMA, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+    
+    public function searchHariini() {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria = new CDbCriteria;
+        $criteria->order = 'KODE_ORDER desc';
+        $criteria->with = array('pelanggan');
+        $criteria->together = true;
+        $criteria->condition = 'TGL_ORDER like "'.date('Y-m-d', strtotime('today')).'%"';
 
         $criteria->compare('KODE_ORDER', $this->KODE_ORDER, true);
         $criteria->compare('KODE_PELANGGAN', $this->KODE_PELANGGAN);
@@ -150,7 +188,7 @@ class Order extends CActiveRecord {
         return parent::beforeValidate();
     }
 
-    protected function afterSave() {
+    protected function afterSave() {      
         if ($this->scenario == 'baru') {
             $notif = new Notifikasi('baru');
             $notif->TIPE_NOTIFIKASI = 'NO';
@@ -177,8 +215,9 @@ class Order extends CActiveRecord {
         return $subtotal;
     }
 
-    public function getTotal() {
-        $subtotal = $this->SUBTOTAL;
+    public function getTotal($subtotal = '') {
+        if(empty($subtotal))
+            $subtotal = $this->getSubtotal();
 
         return $subtotal - ($subtotal * ($this->DISKON / 100)) + $this->BIAYA_ANTAR;
     }

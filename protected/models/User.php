@@ -14,6 +14,8 @@ class User extends CActiveRecord {
 
     const AKTIF = 1, NONAKTIF = 0;
     
+    public $PASSLAMA, $CONFIRM;
+    
     /**
      * @return string the associated database table name
      */
@@ -28,6 +30,10 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('ROLE, USERNAME, PASSWORD, CONFIRM', 'required', 'on' => 'baru', 'message' => '{attribute} wajib diisi'),
+            array('ROLE, USERNAME, PASSWORD, PASSLAMA, CONFIRM', 'required', 'on' => 'edit', 'message' => '{attribute} wajib diisi'),
+            array('PASSWORD', 'cekpassbaru', 'on' => 'baru, edit'),
+            array('PASSLAMA', 'cekpasslama', 'on' => 'edit'),
             array('ROLE, STATUS_USER', 'numerical', 'integerOnly' => true),
             array('USERNAME', 'length', 'max' => 25),
             array('PASSWORD', 'length', 'max' => 32),
@@ -36,6 +42,35 @@ class User extends CActiveRecord {
             // @todo Please remove those attributes that should not be searched.
             array('USERNAME, PASSWORD, ROLE, LAST_LOGIN, STATUS_USER', 'safe', 'on' => 'search'),
         );
+    }
+    
+    public function cekpassbaru($attributes, $params) {
+        $data = $this->{$attributes};
+        if ($data != $this->CONFIRM) {
+            $this->addError('CONFIRM', 'Password tidak sama');
+        }
+        
+        if ($this->hasErrors()) {
+            $this->PASSWORD = '';
+            $this->CONFIRM = '';
+        }
+    }
+    
+    public function cekpasslama($attributes, $params) {
+        $data = $this->{$attributes};
+        $model = User::model()->findByPk($this->USERNAME);
+        if($model === null)
+            $this->addError($attributes, 'Password salah');
+        else {
+            if($model->PASSWORD != md5($data))
+                $this->addError($attributes, 'Password salah');
+        }
+        
+        if ($this->hasErrors()) {
+            $this->PASSWORD = '';
+            $this->CONFIRM = '';
+            $this->PASSLAMA = '';
+        }
     }
 
     /**
@@ -55,7 +90,9 @@ class User extends CActiveRecord {
     public function attributeLabels() {
         return array(
             'USERNAME' => 'Username',
-            'PASSWORD' => 'Password',
+            'PASSWORD' => $this->scenario == 'edit' ? 'Password baru' : 'Password',
+            'PASSLAMA' => 'Password Lama',
+            'CONFIRM' => 'Konfirmasi Password',
             'ROLE' => 'Role',
             'LAST_LOGIN' => 'Last Login',
             'STATUS_USER' => 'Status User',
@@ -78,6 +115,7 @@ class User extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
+        $criteria->condition = 'STATUS_USER = ' . self::AKTIF;
 
         $criteria->compare('USERNAME', $this->USERNAME, true);
         $criteria->compare('PASSWORD', $this->PASSWORD, true);
@@ -98,6 +136,13 @@ class User extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+    
+    protected function beforeValidate() {
+        $this->PASSWORD = md5($this->PASSWORD);
+        $this->CONFIRM = md5($this->CONFIRM);
+        
+        return parent::beforeValidate();
     }
 
 }

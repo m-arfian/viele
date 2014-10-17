@@ -1,11 +1,12 @@
 <?php
 
-class TipeController extends Controller {
+class PegawaiController extends Controller {
+    
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
-    // public $layout = '//layouts/column2';
+//    public $layout = '//layouts/column2';
 
     /**
      * @return array action filters
@@ -27,7 +28,6 @@ class TipeController extends Controller {
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
                 'actions' => array('create', 'update', 'index', 'view', 'nonaktif'),
                 'users' => array('@'),
-                'roles' => array(WebUser::ROLE_ADMIN)
             ),
             array('deny', // deny all users
                 'users' => array('*'),
@@ -39,9 +39,9 @@ class TipeController extends Controller {
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
-    public function actionView($id) {
+    public function actionView($val) {
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $this->loadModel($val),
         ));
     }
 
@@ -50,15 +50,15 @@ class TipeController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new Tipe;
+        $model = new User('baru');
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Tipe'])) {
-            $model->attributes = $_POST['Tipe'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->KODE_TIPE));
+                $this->redirect(array('view', 'val' => $model->USERNAME));
         }
 
         $this->render('create', array(
@@ -71,16 +71,18 @@ class TipeController extends Controller {
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id the ID of the model to be updated
      */
-    public function actionUpdate($id) {
-        $model = $this->loadModel($id);
+    public function actionUpdate($val) {
+        $model = $this->loadModel($val);
+        $model->scenario = 'edit';
+        $model->PASSWORD = '';
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['Tipe'])) {
-            $model->attributes = $_POST['Tipe'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
-                $this->redirect(array('view', 'id' => $model->KODE_TIPE));
+                $this->redirect(array('view', 'val' => $model->USERNAME));
         }
 
         $this->render('update', array(
@@ -101,23 +103,23 @@ class TipeController extends Controller {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
     
-    public function actionNonaktif($id, $ajax = true) {
-        $model = $this->loadModel($id);
-        $model->STATUS_TIPE = Tipe::AKTIF;
+    public function actionNonaktif($val, $ajax = true) {
+        $model = $this->loadModel($val);
+        $model->STATUS_USER = User::NONAKTIF;
         $model->update();
         
         if($ajax == false || $_GET['ajax'] == false)
-            $this->redirect(array('view', 'id' => $model->KODE_TIPE));
+            $this->redirect(array('view', 'val' => $model->USERNAME));
     }
 
     /**
      * Manages all models.
      */
     public function actionIndex() {
-        $model = new Tipe('search');
+        $model = new User('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Tipe']))
-            $model->attributes = $_GET['Tipe'];
+        if (isset($_GET['User']))
+            $model->attributes = $_GET['User'];
 
         $this->render('index', array(
             'model' => $model,
@@ -128,11 +130,11 @@ class TipeController extends Controller {
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return Tipe the loaded model
+     * @return User the loaded model
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = Tipe::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -140,10 +142,10 @@ class TipeController extends Controller {
 
     /**
      * Performs the AJAX validation.
-     * @param Tipe $model the model to be validated
+     * @param User $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'tipe-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

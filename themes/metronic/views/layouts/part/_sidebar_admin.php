@@ -47,11 +47,18 @@
                     <li>
                         <?php echo CHtml::link('<i class="icon-doc"></i> Item', array('/admin/item')) ?>
                     </li>
+		    <li>
+                        <?php echo CHtml::link('<i class="icon-doc"></i> Item', array('/admin/tipe')) ?>
+                    </li>
+
                 </ul>
             </li>
-<!--            <li>
-                <?php echo CHtml::link('<i class="icon-users"></i><span class="title">Manajemen User</span>', array('/admin/user')) ?>
-            </li>-->
+            <li>
+                <?php echo CHtml::link('<i class="icon-users"></i><span class="title">Manajemen User Pegawai</span>', array('/admin/pegawai')) ?>
+            </li>
+            <li>
+                <?php echo CHtml::link('<i class="icon-screen-desktop"></i><span class="title">Monitoring</span>', array('/admin/monitor')) ?>
+            </li>
             <li>
                 <?php echo CHtml::link('<i class="icon-docs"></i><span class="title">Rekap Transaksi</span>', array('/admin/rekap')) ?>
             </li>

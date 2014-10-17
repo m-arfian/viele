@@ -33,7 +33,7 @@ class Pelanggan extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('NAMA_PELANGGAN, KELAMIN', 'required', 'on' => 'baru, edit', 'message' => '{attribute} wajib diisi'),
+            array('NAMA_PELANGGAN', 'required', 'on' => 'baru, edit', 'message' => '{attribute} wajib diisi'),
             array('STATUS_PELANGGAN', 'numerical', 'integerOnly' => true),
             array('NAMA_PELANGGAN', 'length', 'max' => 255),
             array('KELAMIN', 'length', 'max' => 1),
